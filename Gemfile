@@ -26,6 +26,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'haml-rails', '~> 0.9.0'
 gem 'slim-rails', '~> 3.0', '>= 3.0.1'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
+gem 'test-unit'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -38,8 +39,13 @@ group :development do
 
 end
 
+
 group :test, :development do
   gem 'rspec-rails' 
-	gem 'factory_girl_rails'
-  gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
+	gem 'factory_girl'
+end
+
+
+group :test do
+   gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git'
 end
