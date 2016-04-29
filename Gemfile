@@ -36,15 +36,14 @@ end
 group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-
+  gem 'rubocop', require: false
+  gem 'slim_lint', '~> 0.7.2', require: false
 end
-
 
 group :test, :development do
   gem 'rspec-rails' 
-	gem 'factory_girl'
+  gem 'factory_girl'
 end
-
 
 group :test do
    gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git'

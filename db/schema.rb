@@ -14,20 +14,20 @@
 ActiveRecord::Schema.define(version: 20160427165110) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "answers", force: :cascade do |t|
-    t.text     "body"
-    t.integer  "question_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+  create_table 'answers', force: :cascade do |t|
+    t.text     'body'
+    t.integer  'question_id'
+    t.datetime 'created_at',  null: false
+    t.datetime 'updated_at',  null: false
   end
 
-  create_table "questions", force: :cascade do |t|
-    t.string   "title"
-    t.text     "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'questions', force: :cascade do |t|
+    t.string   'title'
+    t.text     'body'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
 end
