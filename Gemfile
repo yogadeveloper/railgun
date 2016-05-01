@@ -42,7 +42,8 @@ end
 
 group :test, :development do
   gem 'rspec-rails' 
-  gem 'factory_girl'
+  gem 'factory_girl', '~> 4.7', require: false
+
 end
 
 group :test do
