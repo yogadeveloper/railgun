@@ -1,5 +1,6 @@
 class Answer < ActiveRecord::Base
-  belongs_to :question
+  belongs_to :question 
 
-  validates :body, :question_id, presence: true, length: { minimum: 5 }
+  validates :body, presence: true, length: { minimum: 5 }
+  validates :question_id, presence: true 
 end
