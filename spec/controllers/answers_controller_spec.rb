@@ -2,14 +2,11 @@ require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
   let(:question) { create(:question) }
-
+  let(:answers) { create_list(:answer, 2, question: question) }
   describe 'GET #index' do
     it 'populates an array of all answers for this question' do
-      question = create(:question)
-      answer1 = create(:answer, question: question)
-      answer2 = create(:answer, question: question)
       get :index, question_id: question
-      expect(assigns(:answers)).to match_array([answer1, answer2])
+      expect(assigns(:answers)).to match_array(answers)
     end
   end
   
@@ -50,7 +47,7 @@ RSpec.describe AnswersController, type: :controller do
       it 'does not save the answer' do
         expect { 
           post :create, question_id: question, answer: attributes_for(:invalid_answer)
-        }.to_not change(question.answers, :count)
+        }.to_not change(Answer, :count)
       end
     
       it 're-renders new view' do
