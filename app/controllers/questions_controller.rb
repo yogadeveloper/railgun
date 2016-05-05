@@ -6,6 +6,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
+ #   @question = Question.find(params[:id])
   end
 
   def new
@@ -16,9 +17,9 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
     
     if @question.save
-      redirect_to @question
+      redirect_to @question, notice: 'Question successfuly created'
     else
-      render :new
+      redirect_to new_question_path, notice: 'Title and body length should be no less than 5 letters'
     end
   end
 

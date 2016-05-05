@@ -48,4 +48,6 @@ end
 
 group :test do
    gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git'
+   gem 'capybara'
+   gem 'launchy'
 end
