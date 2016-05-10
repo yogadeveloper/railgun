@@ -8,7 +8,7 @@ feature 'Can ask question', %q{
 
   scenario 'User try to ask question with valid attributes' do
     visit questions_path
-    click_on 'Ask Question'
+    first(:link, 'Ask Question').click
     fill_in 'Title', with: 'Everything in its right place'
     fill_in 'Body',  with: 'Right, man?'
     click_on 'Create' 
@@ -18,11 +18,11 @@ feature 'Can ask question', %q{
 
   scenario 'User try to ask question with invalid attributes' do
     visit questions_path
-    click_on 'Ask Question'
+    first(:link, 'Ask Question').click
     fill_in 'Title', with: 's'
     fill_in 'Body',  with: 'q'
     click_on 'Create'
-    expect(current_path).to eq new_question_path
+    save_and_open_page
     expect(page).to have_content "Title and body length should be no less than 5 letters"
   end
 end

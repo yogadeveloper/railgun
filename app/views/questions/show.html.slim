@@ -6,6 +6,11 @@
     h2= @question.title
       p= @question.body
   .row
+    - @question.answers.each do |answer|
+      .comments
+        ul
+          li = answer.body  
+  .row
     .form-group
       = form_for [@question, @answer] do |f|
         = f.label :body

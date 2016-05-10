@@ -1,11 +1,10 @@
 class AnswersController < ApplicationController
-  before_action :load_question
+  before_action :load_question, only: [:index, :new, :create, :show]
   def index
     @answers = @question.answers
   end
 
   def show
-    @answer = @question.answers(answer_params)
   end
 
   def create
