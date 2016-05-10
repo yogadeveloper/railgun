@@ -6,10 +6,8 @@
     h2= @question.title
       p= @question.body
   .row
-    - @question.answers.each do |answer|
-      .comments
-        ul
-          li = answer.body  
+    - for answer in @answers
+      p= answer.body  
   .row
     .form-group
       = form_for [@question, @answer] do |f|

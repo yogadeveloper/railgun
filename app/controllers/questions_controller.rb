@@ -5,7 +5,8 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @answer = @question.answers.new
+    @answer = @question.answers.build
+    @answers = @question.answers
   end
 
   def new
@@ -18,7 +19,7 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to @question, notice: 'Question successfully created'
     else
-      redirect_to new_question_path, notice: 'Title and body length should be no less than 5 letters'
+      render :new, notice: 'Title and body length should be no less than 5 letters'
     end
   end
 
