@@ -4,17 +4,17 @@ class AnswersController < ApplicationController
     @answers = @question.answers
   end
 
-  def new
-    @answer = @question.answers.new
+  def show
+    @answer = @question.answers(answer_params)
   end
 
   def create
     @answer = @question.answers.new(answer_params)
 
     if @answer.save
-      redirect_to @question
+      redirect_to @question, notice: 'Your reply has been successfully posted'
     else
-      render :new
+      redirect_to @question, notice: 'Your message is too short. Please, don\'t be so laconical'
     end
   end
 
