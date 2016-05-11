@@ -79,4 +79,7 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   FactoryGirl.definition_file_paths << File.join(File.dirname(__FILE__), 'factories')
   FactoryGirl.find_definitions
+
+  config.include Devise::TestHelpers, type: :controller
+
 end
