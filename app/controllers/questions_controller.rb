@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :load_question, only: [:show]
   def index
     @questions = Question.all
@@ -19,7 +20,8 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to @question, notice: 'Question successfully created'
     else
-      render :new, notice: 'Title and body length should be no less than 5 letters'
+      flash[:notice] = 'Title and body length should be no less than 5 letters'
+      render :new 
     end
   end
 

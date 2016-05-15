@@ -12,7 +12,6 @@ feature 'User registration', %q{
     fill_in 'Password', with: '12345678'
     fill_in 'Password confirmation', with: '12345678'
     click_on 'Sign up'
-    save_and_open_page
     expect(page).to have_content 'Welcome! You have signed up successfully.'
   end
   

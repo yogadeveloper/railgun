@@ -9,7 +9,6 @@ feature 'Can see answers list of question', %q{
     answers = create_pair(:answer, question: question)
     
     visit question_path(question)
-    save_and_open_page
     expect(page). to have_content "test-answerwqwqe"
   end
 end

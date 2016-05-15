@@ -9,15 +9,9 @@ feature 'User sign out', %q{
   given(:user) { create(:user) }
 
   scenario 'Registered user try to sign out' do
-    user
-    visit questions_path
-    click_on 'Log in'
-    fill_in 'Email', with: 'user@test.com'
-    fill_in 'Password', with: '12345678'
-    click_on 'Log in'
+    sign_in(user)
     click_on 'Log out'
     expect(page).to have_content 'Signed out successfully'
-    save_and_open_page
     expect(page).to have_content("Login")
 
   end
