@@ -49,8 +49,8 @@ RSpec.describe QuestionsController, type: :controller do
   describe 'POST #create' do
     sign_in_user
     context 'with valid attributes' do
-      it 'saves the new question in the database' do
-        expect { post :create, question: attributes_for(:question) }.to change(Question, :count).by(1)
+      it 'assigns new question to current user and save it to the database' do
+        expect { post :create, question: attributes_for(:question) }.to change(@user.questions, :count).by(1)
       end
       
       it  'redirects to show view' do
@@ -59,16 +59,56 @@ RSpec.describe QuestionsController, type: :controller do
       end
     end
 
-    context 'with invalid attributes' do
+    context 'with invalid attributes(logged in user)' do
       it 'does not save question' do
         expect { 
           post :create, question: attributes_for(:invalid_question) 
-       }.to_not change(Question, :count)
+       }.to_not change(@user.questions, :count)
       end
 
       it 're-renders new view' do
         post :create, question: attributes_for(:invalid_question)
         expect(response).to render_template :new
+      end
+    end 
+  end
+
+  describe 'DELETE #destroy' do
+    
+    context 'not authorized user' do
+      let(:user) { create :user }
+      before { user.questions << question }
+      it 'does not destroy question' do
+          expect { delete :destroy, id: question.id 
+                }.to_not change(Question, :count)
+      end
+    end
+
+    context 'authorized user' do
+      sign_in_user
+      let(:user) { create :user }
+      before { @user.questions << question }
+
+      context 'question belongs to user' do
+        it 'destroys question' do
+          expect { delete :destroy, id: question.id 
+                }.to change(@user.questions, :count).by(-1)
+        end
+        it 'redirects to questions' do
+          delete :destroy, id: question.id
+          expect(response).to redirect_to questions_path
+        end
+      end
+
+      context 'question belongs to another user' do
+        before { user.questions << question }
+        it 'does not destroy question' do
+          expect { delete :destroy, id: question.id }.to_not change(Question, :count)
+        end
+        it 'redirects to this question' do
+          delete :destroy, id: question.id
+          expect(response).to redirect_to question_path(question)
+        end
       end
     end
   end
