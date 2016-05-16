@@ -43,9 +43,7 @@ class QuestionsController < ApplicationController
   def destroy_question
     if current_user.owner_of?(@question)
       @question.destroy 
-      redirect_to(questions_path)
-    else
-      redirect_to question_path(@question)
+      redirect_to questions_path, notice: 'Question succesfully destroyed'      
     end
   end
 end
