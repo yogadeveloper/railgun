@@ -1,15 +1,10 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :load_question, only: [:index, :new, :create, :show]
-  #def index
-  #  @answers = @question.answers
-  #end
-
-  def show
-  end
+  before_action :authenticate_user!, except: [:index]
+  before_action :load_answer, only: [:destroy]
+  before_action :load_question, only: [:create]
 
   def create
-    @answer = @question.answers.new(answer_params)
+    @answer = @question.answers.new(answer_params.merge(user_id: current_user.id))
 
     if @answer.save
       redirect_to @question, notice: 'Your reply has been successfully posted'
@@ -18,6 +13,15 @@ class AnswersController < ApplicationController
     end
   end
 
+  def destroy
+    if current_user.owner_of?(@answer)
+      @answer.destroy  
+      flash[:notice] = 'Your answer has benn successfully removed'
+    else
+      flash[:notice] = 'You cannot remove this answer'
+    end
+  end
+  
   private
 
   def load_question
@@ -26,5 +30,9 @@ class AnswersController < ApplicationController
   
   def answer_params
     params.require(:answer).permit(:body)
+  end
+
+  def load_answer
+    @answer = Answer.find(params[:id])
   end
 end

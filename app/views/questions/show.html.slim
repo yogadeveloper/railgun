@@ -6,9 +6,9 @@
         - if current_user && @question.user_id == current_user.id
           = link_to 'Delete question', @question, method: :delete, class: 'btn btn-danger'
 
-  .row
-    - for answer in @answers
-      p= answer.body  
+  .answers    
+    = render @question.answers
+
   .row
     .form-group
       = form_for [@question, @answer] do |f|
