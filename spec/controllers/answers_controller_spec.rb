@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
   sign_in_user
-  let(:question) { create(:question) }
+  let(:question) { create(:question, user: @user) }
   let!(:answer) { create(:answer, question: question, user: @user) }
 
   describe 'POST #create' do
@@ -13,7 +13,11 @@ RSpec.describe AnswersController, type: :controller do
           post :create, question_id: question, answer: attributes_for(:answer) 
           }.to change(question.answers, :count).by(1) 
       end
-
+      it 'belongs to current user' do
+        expect { 
+          post :create, question_id: question, answer: attributes_for(:answer) 
+          }.to change(@user.answers, :count).by(1)
+      end
       it 'redirects to answers show view' do
         post :create, question_id: question, answer: attributes_for(:answer)
         expect(response).to redirect_to question_path(question)
@@ -29,7 +33,7 @@ RSpec.describe AnswersController, type: :controller do
     
       it 're-renders new view' do
         post :create, question_id: question, answer: attributes_for(:invalid_answer)
-        expect(response).to redirect_to question_path(question)
+        expect(response).to render_template 'questions/show'
       end
     end    
   end
@@ -41,9 +45,9 @@ RSpec.describe AnswersController, type: :controller do
         expect { delete :destroy, id: answer.id 
           }.to change(@user.answers, :count).by(-1)
       end
-      it 'redirects to current question' do
+      it 're-renders current question' do
         delete :destroy, id: answer.id, question_id: question
-        expect(response).to render_template :destroy
+        expect(response).to render_template 'questions/show'
       end
     end
 

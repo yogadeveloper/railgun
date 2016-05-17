@@ -4,11 +4,15 @@ feature 'Can see answers list of question', %q{
   In order to be able to see the list of question
   As a user
 } do
+
+  given(:user) { create :user }
+  given!(:question) { create :question, user: user }
+  given!(:answers) { create_list :answer, 5, question: question, user: user }
+
   scenario 'User see the list of answers' do
-    question = create(:question)
-    answers = create_pair(:answer, question: question)
-    
     visit question_path(question)
-    expect(page). to have_content "test-answerwqwqe"
+    within("div#answers-list") do
+     expect( assert_selector('p', :count => 6)) 
+   end
   end
 end

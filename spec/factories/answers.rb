@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :answer do
-    body  'test-answerwqwqe'
-    question_id 1
-    user
+    sequence(:body) { |n| "Body Sample#{n}" }
+    question_id nil
+    user nil
   end
 
   factory :invalid_answer, class: "Answer" do

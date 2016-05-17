@@ -4,19 +4,19 @@ class AnswersController < ApplicationController
   before_action :load_question, only: [:create]
 
   def create
-    @answer = @question.answers.new(answer_params.merge(user_id: current_user.id))
+    @answer = @question.answers.new(answer_params.merge(user: current_user))
 
     if @answer.save
       redirect_to @question, notice: 'Your reply has been successfully posted'
     else
-      redirect_to @question, notice: 'Your message is too short. Please, don\'t be so laconical'
+      render 'questions/show', notice: 'Your message is too short. Please, don\'t be so laconical'
     end
   end
 
   def destroy
     if current_user.owner_of?(@answer)
-      @answer.destroy  
-      flash[:notice] = 'Your answer has benn successfully removed'
+      @answer.destroy 
+      render 'questions/show', notice: 'Your answer has been successfully removed'
     else
       flash[:notice] = 'You cannot remove this answer'
     end

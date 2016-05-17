@@ -27,7 +27,13 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    destroy_question 
+    if current_user.owner_of?(@question)
+      @question.destroy 
+      redirect_to root_path
+      flash[:notice] ='Question succesfully destroyed'      
+    else
+      render 'questions/show', notice: 'You are not the owner of this question'
+    end
   end
 
   private
@@ -38,12 +44,5 @@ class QuestionsController < ApplicationController
   
   def question_params
     params.require(:question).permit(:title, :body, )
-  end
-
-  def destroy_question
-    if current_user.owner_of?(@question)
-      @question.destroy 
-      redirect_to questions_path, notice: 'Question succesfully destroyed'      
-    end
   end
 end
