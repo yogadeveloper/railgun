@@ -7,7 +7,7 @@ feature 'view list of questions on root_path' do
   scenario 'view list of questions' do  
     visit questions_path
     5.times do |count|
-    expect(page).to have_content questions[count].title
+      expect(page).to have_content questions[count].title
     end
   end
 end 

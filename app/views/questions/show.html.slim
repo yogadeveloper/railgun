@@ -8,7 +8,7 @@
 
 .answers id = "answers-list"
   = render 'answers/answers'
-#  = render 'answers/new_answer'
+
 .row
   .form-group
     = form_for [@question, @answer], remote: true do |f|

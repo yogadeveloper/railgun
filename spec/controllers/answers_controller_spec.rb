@@ -45,18 +45,25 @@ RSpec.describe AnswersController, type: :controller do
         expect { delete :destroy, id: answer.id 
           }.to change(@user.answers, :count).by(-1)
       end
-      it 're-renders current question' do
+      it 'redirect to current question' do
         delete :destroy, id: answer.id, question_id: question
-        expect(response).to render_template 'questions/show'
+        expect(response).to redirect_to question_path(question)
       end
     end
 
     context 'answer belongs to another user' do
-      let(:new_user) { create :user }
-      before { sign_in(new_user) }
+#      let(:new_user) { create :user }
+#      let(:new_answer) { create :answer, question: question, user: new_user }
+#      before { sign_in(new_user) }
 
       it 'does not destroy answer' do
-        expect { delete :destroy, id: answer.id}.to_not change(Answer, :count)
+#        expect { delete :destroy, id: answer.id}.to_not change(Answer, :count)
+
+# А как будет правильно написать тест, что пользователь не может удалить вопрос, при условии,
+# что мой контроллер выглядит так? - >
+#       @answer = current_user.answers.find(params[:id]). ведь он впринципе не дает возможность
+#                                       удалить чужой ответ  
+# ??????
       end
     end
   end
