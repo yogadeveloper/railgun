@@ -7,7 +7,6 @@ class AnswersController < ApplicationController
     @answer = @question.answers.new(answer_params.merge(user: current_user))
 
     if @answer.save
-      redirect_to @question, notice: 'Your reply has been successfully posted'
     else
       render 'questions/show', notice: 'Your message is too short. Please, don\'t be so laconical'
     end

@@ -15,7 +15,6 @@ feature 'create question', %q{
     fill_in 'Title', with: 'Everything in its right place'
     fill_in 'Body',  with: 'Right, man?'
     click_on 'Create' 
-    save_and_open_page
     expect(page).to have_content "Question successfully created"
     expect(page).to have_content "Everything in its right place"
     expect(page).to have_content "Right, man?"

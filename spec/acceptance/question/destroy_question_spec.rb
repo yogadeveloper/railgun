@@ -13,14 +13,8 @@ feature 'destroy question', %q{
     user.questions << question
     visit question_path(question)
     click_on "Delete question"
-    save_and_open_page
     expect(page).to have_content "Question succesfully destroyed"
     expect(page).to have_no_content question.title
- 
- #  expect(current_path).to eq 'questions/index' 
- #  Почему-то при тесте никак не хочет переходить на страницу questions
- #  на локальном сервере все работает правильно, в чем здесь подвох? 
-
   end
 
   scenario 'User try to delete question that not belongs to him' do

@@ -8,14 +8,13 @@ feature 'Can answer the question', %q{
   given(:user) { create(:user) }
   let!(:question) { create(:question, user: user) } 
   given(:answer) {create(:answer, question: question, user: user) }
-  scenario 'User try to answer the question with valid attributes' do
+  scenario 'User try to answer the question with valid attributes', js: true do
     sign_in(user)
     answer
     visit question_path(question)
 
     fill_in 'Body', with: 'Hey man, I have no idea about your issue. Now you know it'
     click_on ('Reply')
-    expect(page).to have_content "Your reply has been successfully posted"
     expect(page).to have_content "Hey man, I have no idea about your issue. Now you know it"
   end
 
