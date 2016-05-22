@@ -52,18 +52,11 @@ RSpec.describe AnswersController, type: :controller do
     end
 
     context 'answer belongs to another user' do
-#      let(:new_user) { create :user }
-#      let(:new_answer) { create :answer, question: question, user: new_user }
-#      before { sign_in(new_user) }
+      let(:new_user) { create :user }
+      let(:new_answer) { create :answer, question: question, user: new_user }
 
-      it 'does not destroy answer' do
-#        expect { delete :destroy, id: answer.id}.to_not change(Answer, :count)
-
-# А как будет правильно написать тест, что пользователь не может удалить вопрос, при условии,
-# что мой контроллер выглядит так? - >
-#       @answer = current_user.answers.find(params[:id]). ведь он впринципе не дает возможность
-#                                       удалить чужой ответ  
-# ??????
+      it 'cannot be destroyed' do
+        expect { @user.answers.find(new_answer.id) }.to raise_error ActiveRecord::RecordNotFound
       end
     end
   end

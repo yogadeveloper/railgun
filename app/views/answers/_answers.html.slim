@@ -1,4 +1,0 @@
-- @question.answers.each do |answer|
-  p = answer.body
-  - if current_user && current_user.owner_of?(answer)
-    = link_to 'Delete answer', answer_path(answer.id), method: 'delete'
