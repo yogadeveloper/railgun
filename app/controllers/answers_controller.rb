@@ -15,11 +15,10 @@ class AnswersController < ApplicationController
     @answer = current_user.answers.find(params[:id])
     @answer.destroy if current_user.owner_of?(@answer)
     redirect_to @answer.question
-      #question_path(@answer.question_id)
     if @answer.destroy
       flash[:notice] = 'Your answer has been successfully removed' 
     else
-      flash[:notice] = 'You cannot remove this answer'
+      render head: :forbidden
     end
   end
   
