@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative '../acceptance_helper'
 
 feature 'Can see answers list of question', %q{
   In order to be able to see the list of question

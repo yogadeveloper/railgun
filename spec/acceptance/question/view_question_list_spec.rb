@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative '../acceptance_helper'
 
 feature 'view list of questions on root_path' do  
   given(:user) { create :user }
