@@ -3,12 +3,7 @@ class AnswersController < ApplicationController
   before_action :load_question, only: [:create]
 
   def create
-    @answer = @question.answers.new(answer_params.merge(user: current_user))
-
-    if @answer.save
-    else
-      render 'questions/show', notice: 'Your message is too short. Please, don\'t be so laconical'
-    end
+    @answer = @question.answers.create(answer_params.merge(user: current_user))
   end
 
   def destroy

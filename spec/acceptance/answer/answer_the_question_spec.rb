@@ -18,11 +18,11 @@ feature 'Can answer the question', %q{
     expect(page).to have_content "Hey man, I have no idea about your issue. Now you know it"
   end
 
-  scenario 'User try to answer the question with invalid attributes' do
+  scenario 'User try to answer the question with invalid attributes', js: true do
     sign_in(user)
     visit question_path(question)
     fill_in 'Body', with: 'hm'
     click_on ('Reply')
-    expect(page).to have_content "Your message is too short. Please, don't be so laconical"
+    expect(page).to have_content "Body is too short (minimum is 5 characters)"
   end
 end
