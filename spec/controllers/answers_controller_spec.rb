@@ -7,14 +7,14 @@ RSpec.describe AnswersController, type: :controller do
 
   describe 'POST #create' do
     context 'with valid attributes' do
-      
+
       it 'saves the new answer in the database' do
-        expect { 
-          post :create, question_id: question, answer: attributes_for(:answer), format: :js 
-          }.to change(question.answers, :count).by(1) 
+        expect {
+          post :create, question_id: question, answer: attributes_for(:answer), format: :js
+          }.to change(question.answers, :count).by(1)
       end
       it 'belongs to current user' do
-        expect { 
+        expect {
           post :create, question_id: question, answer: attributes_for(:answer), format: :js
           }.to change(@user.answers, :count).by(1)
       end
@@ -26,23 +26,23 @@ RSpec.describe AnswersController, type: :controller do
 
     context 'with invalid attribues' do
       it 'does not save the answer' do
-        expect { 
+        expect {
           post :create, question_id: question, answer: attributes_for(:invalid_answer), format: :js
         }.to_not change(Answer, :count)
       end
-    
+
       it 're-renders new view' do
         post :create, question_id: question, answer: attributes_for(:invalid_answer), format: :js
         expect(response).to render_template 'answers/create'
       end
-    end    
+    end
   end
 
   describe 'DELETE #destroy' do
 
     context 'answer belongs to user' do
       it 'destroys answer' do
-        expect { delete :destroy, id: answer.id 
+        expect { delete :destroy, id: answer.id
           }.to change(@user.answers, :count).by(-1)
       end
       it 'redirect to current question' do
@@ -82,5 +82,13 @@ RSpec.describe AnswersController, type: :controller do
       expect(response).to render_template :update
     end
   end
-end
 
+  describe 'PATCH #mark_as_best' do
+    before { patch :mark_as_best, id: answer, format: :js }
+
+    it 'changes answer best attribute' do
+      answer.reload
+      expect(answer.best).to eq true
+    end
+  end
+end
