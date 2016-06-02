@@ -27,10 +27,14 @@ feature 'Question editing', %q{
 
     scenario "try to edit his question", js: true do
       click_on 'Edit'
-      fill_in 'Question', with: 'edited question'
-      click_on 'Save'
-      
+      within '.edit_question' do
+        fill_in 'Title', with: 'edited question title'
+        fill_in 'Body', with: 'edited question'
+        click_on 'Save'
+      end
+      expect(page).to_not have_content question.title
       expect(page).to_not have_content question.body
+      expect(page).to have_content 'edited question title'
       expect(page).to have_content 'edited question'
       expect(page).to_not have_selector 'textarea#question.body'
     end
