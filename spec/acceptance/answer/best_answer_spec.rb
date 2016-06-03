@@ -7,7 +7,7 @@ feature 'Can set the best answer', %q{
   given!(:question) { create(:question, user: user) }
   given!(:answer) { create_list(:answer, 5, question: question, user: user) }
   given!(:non_author) { create(:user) }
-  given!(:answer_to_mark) { create(:answer, question: question, user: user) }
+  given!(:answer_to_mark) { create(:answer, body: 'I am the best answer and I am on the top', question: question, user: user) }
 
   scenario 'Non-authenticated user tries to set the best answer', js: true do
     visit question_path(question)
@@ -29,7 +29,8 @@ feature 'Can set the best answer', %q{
         click_on "Mark as Best"
       end
       within '.best' do
-        expect(page).to have_content answer_to_mark.body
+        expect(page).to have_content 'nice!'
+        expect(page).to have_content 'I am the best answer and I am on the top'
       end
     end
   end

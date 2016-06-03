@@ -10,7 +10,7 @@ class Answer < ActiveRecord::Base
   def make_best!
     transaction do
       question.answers.where(best: true).update_all(best: false)
-      update_attribute(:best, true)
+      update!(best: true)
     end
   end
 end
