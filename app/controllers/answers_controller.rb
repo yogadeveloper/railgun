@@ -9,7 +9,6 @@ class AnswersController < ApplicationController
   def destroy
     @answer = current_user.answers.find(params[:id])
     @answer.destroy if current_user.owner_of?(@answer)
-    redirect_to @answer.question
     if @answer.destroy
       flash[:notice] = 'Your answer has been successfully removed'
     else
