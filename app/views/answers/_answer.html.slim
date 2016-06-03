@@ -1,9 +1,9 @@
 div id="answer-#{ answer.id }"
   - if answer.best
       .page-header
-      p= answer.body 
-      p class="label label-primary" nice!  
-                        
+        .best
+          p= answer.body 
+          p class="label label-primary" nice!                          
   - else
     - if answer.persisted?
         .page-header
