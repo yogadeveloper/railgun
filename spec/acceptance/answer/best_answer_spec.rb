@@ -8,7 +8,7 @@ feature 'Can set the best answer', %q{
   given!(:answer) { create_list(:answer, 5, question: question, user: user) }
   given!(:non_author) { create(:user) }
 
-  scenario 'Non-authenticated user tries to set the best answer' do
+  scenario 'Non-authenticated user tries to set the best answer', js: true do
     visit question_path(question)
     expect(page).to_not have_content "Mark as Best"
   end
@@ -19,7 +19,7 @@ feature 'Can set the best answer', %q{
     expect(page).to have_content "Mark as Best"
   end
 
-  scenario 'Non-author tries to set best answer' do
+  scenario 'Non-author tries to set best answer', js: true do
     sign_in(non_author)
     visit question_path(question)
     expect(page).to_not have_content "Mark as Best"

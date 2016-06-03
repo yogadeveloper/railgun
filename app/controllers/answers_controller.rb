@@ -19,8 +19,10 @@ class AnswersController < ApplicationController
 
   def update
     @answer = Answer.find(params[:id])
-    @answer.update(answer_params)
-    @question = @answer.question
+    if current_user.owner_of?(@answer)
+      @answer.update(answer_params)
+      @question = @answer.question
+    end
   end
 
   def mark_as_best
