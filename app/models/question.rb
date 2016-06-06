@@ -1,7 +1,7 @@
 class Question < ActiveRecord::Base
   belongs_to :user
   has_many :answers, dependent: :destroy
-  has_many :attachments
+  has_many :attachments, as: :attachable
 
   validates :title, length: { minimum: 5  }, presence: true
   validates :body,  length: { minimum: 5 }, presence: true
