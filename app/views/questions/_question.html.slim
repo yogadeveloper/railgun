@@ -1,6 +1,10 @@
 div id="question-#{ @question.id }"
   h2= question.title
   p= question.body
+  p Attachments:
+  ul
+    - @question.attachments.each do |a|
+      li= a.file.file.filename      
   - if current_user && current_user.owner_of?(question)
       = link_to 'Delete question', question, method: 'delete', class: 'btn btn-danger btn-secondary'
       = link_to 'Edit', '', class: 'edit-question-link btn btn-warning', data: { question_id: question.id }

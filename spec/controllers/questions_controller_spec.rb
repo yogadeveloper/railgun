@@ -3,14 +3,14 @@ require 'rails_helper'
 RSpec.describe QuestionsController, type: :controller do
   let(:question) { create(:question, user: user) }
   let(:user) { create(:user) }
-  
+
   describe 'GET #index' do
     let(:questions) { create_list(:question, 2, user: user) }
-    
-    before { get :index }            
+
+    before { get :index }
 
     it 'populates an array of all questions' do
-      expect(assigns(:questions)).to match_array(questions)  
+      expect(assigns(:questions)).to match_array(questions)
     end
 
     it 'renders index view' do
@@ -37,9 +37,13 @@ RSpec.describe QuestionsController, type: :controller do
   describe 'GET #new' do
     sign_in_user
     before { get :new }
-      
+
     it 'assigns a new Question to @question' do
       expect(assigns(:question)).to be_a_new(Question)
+    end
+
+    it 'builds new attachment for question' do
+      expect(assigns(:question).attachments.first).to be_a_new(Attachment)
     end
 
     it 'renders new view' do
@@ -53,13 +57,13 @@ RSpec.describe QuestionsController, type: :controller do
       it 'assigns new question to current user and save it to the database' do
         expect { post :create, question: attributes_for(:question) }.to change(Question, :count).by(1)
       end
-      
+
       it 'belongs to current user' do
-        expect { 
-          post :create, question_id: question, question: attributes_for(:question) 
+        expect {
+          post :create, question_id: question, question: attributes_for(:question)
           }.to change(@user.questions, :count).by(1)
-      end      
-      
+      end
+
       it  'redirects to show view' do
         post :create, question: attributes_for(:question)
         expect(response).to redirect_to question_path(assigns(:question))
@@ -68,8 +72,8 @@ RSpec.describe QuestionsController, type: :controller do
 
     context 'with invalid attributes(logged in user)' do
       it 'does not save question' do
-        expect { 
-          post :create, question: attributes_for(:invalid_question) 
+        expect {
+          post :create, question: attributes_for(:invalid_question)
        }.to_not change(Question, :count)
       end
 
@@ -77,7 +81,7 @@ RSpec.describe QuestionsController, type: :controller do
         post :create, question: attributes_for(:invalid_question)
         expect(response).to render_template :new
       end
-    end 
+    end
   end
 
   describe 'DELETE #destroy' do
@@ -85,10 +89,10 @@ RSpec.describe QuestionsController, type: :controller do
     context 'question belongs to user' do
       before { @user.questions << question }
       it 'destroys question' do
-        expect { delete :destroy, id: question.id 
+        expect { delete :destroy, id: question.id
               }.to change(Question, :count).by(-1)
       end
-      
+
       it 'redirects to questions' do
         delete :destroy, id: question.id
         expect(response).to redirect_to root_path
@@ -109,7 +113,7 @@ RSpec.describe QuestionsController, type: :controller do
 
     it 'assigns the requested question to @question' do
       patch :update, id: question, user_id: user, question: attributes_for(:question), format: :js
-      expect(assigns(:question)).to eq question   
+      expect(assigns(:question)).to eq question
     end
 
     it 'changes question attr' do
