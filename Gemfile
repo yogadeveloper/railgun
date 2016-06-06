@@ -28,6 +28,7 @@ gem 'slim-rails', '~> 3.0', '>= 3.0.1'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
 gem 'test-unit'
 gem 'devise'
+gem 'carrierwave'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -42,7 +43,7 @@ group :development do
 end
 
 group :test, :development do
-  gem 'rspec-rails' 
+  gem 'rspec-rails'
   gem 'factory_girl', '~> 4.7', require: false
   gem 'database_cleaner'
   gem 'capybara-webkit'
