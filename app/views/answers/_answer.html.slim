@@ -3,11 +3,17 @@ div id="answer-#{ answer.id }" class="answer"
       .page-header
         .best
           p= answer.body 
+          ul
+            - answer.attachments.each do |a|
+              li= link_to a.file.identifier, a.file.url
           p class="label label-primary" nice!                          
   - else
     - if answer.persisted?
         .page-header
           p = answer.body
+          ul
+            - answer.attachments.each do |a|
+              li= link_to a.file.identifier, a.file.url
   - if current_user && current_user.owner_of?(answer)
     p= link_to 'Delete answer', answer, remote: true, method: 'delete',  data: {confirm: 'Are you sure?'}
     p= link_to 'Edit', '',  class: 'edit-answer-link', data: { answer_id: answer.id }    
