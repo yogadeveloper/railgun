@@ -1,0 +1,4 @@
+var $bestId = document.getElementsByClassName("best").removeClass('best').id;
+$('.answers').find('.best').remove();
+$('.answers').append('<%= j render @answer, answer: 177 %>');
+$('.answers').find('div#answer-<%= @answer.id %>').remove();
