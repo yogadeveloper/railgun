@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   has_many :questions, dependent: :destroy
   has_many :answers
   
-def owner_of?(item)
-  item.user_id == id
-end
+  def owner_of?(item)
+    item.user_id == id
+  end
 end

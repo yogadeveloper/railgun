@@ -11,8 +11,8 @@ feature 'Can see answers list of question', %q{
 
   scenario 'User see the list of answers' do
     visit question_path(question)
-    within("div#answers-list") do
-     expect( assert_selector('p', :count => 6)) 
+    5.times do |count|
+    expect(page).to have_content answers[count].body
    end
   end
 end
