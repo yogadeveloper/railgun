@@ -1,0 +1,16 @@
+.container
+  .row 
+    h2= @question.title
+    p= @question.body
+    .control
+        - if current_user && @question.user_id == current_user.id
+          = link_to 'Delete question', @question, method: 'delete', class: 'btn btn-danger'
+
+  .answers id = "answers-list"   
+    = render @question.answers
+  .row
+    .form-group
+      = form_for [@question, @answer] do |f|
+        = f.label :body
+        = f.text_area :body
+        = f.submit 'Reply'

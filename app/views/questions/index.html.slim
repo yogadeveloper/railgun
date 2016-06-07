@@ -1,0 +1,9 @@
+.container
+- @questions.each do |q|
+  .row
+  = link_to q.title, q
+
+button class="btn btn-default"
+  = link_to 'Ask Question', new_question_path
+  
+
