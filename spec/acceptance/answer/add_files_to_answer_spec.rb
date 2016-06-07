@@ -16,10 +16,15 @@ feature 'Add files to answer', %q{
 
   scenario 'User adds file when asks question', js: true do
     fill_in 'Body',  with: 'test answ2er'
-    attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
+    click_on 'add file'
+    fields = all('input[type="file"]')
+    fields[0].set("#{Rails.root}/spec/spec_helper.rb")
+    fields[1].set("#{Rails.root}/models/answer_spec.rb")
     click_on 'Reply'
+
     within '.answers' do
       expect(page).to have_link 'spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb'
+      expect(page).to have_link 'answer_spec.rb', href: '/uploads/attachment/file/2/answer_spec.rb'
     end
   end
 end
