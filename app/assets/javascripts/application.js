@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
-
+//= require_answers
+//= require_questions
