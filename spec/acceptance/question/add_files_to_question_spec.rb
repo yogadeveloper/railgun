@@ -7,13 +7,11 @@ feature 'Add files to question', %q{
 } do
 
   given(:user) { create(:user) }
-
-  background do
-    sign_in(user)
-    visit new_question_path
-  end
+  given(:question) { create(:question, user: user) }
 
   scenario 'User adds file when asks question', js: true do
+    sign_in(user)
+    visit new_question_path
     fill_in 'Title', with: 'Everything in its right place'
     fill_in 'Body',  with: 'Right, man?'
     click_on 'add file'
@@ -24,5 +22,17 @@ feature 'Add files to question', %q{
 
     expect(page).to have_link 'spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb'
     expect(page).to have_link 'answer_spec.rb', href: '/uploads/attachment/file/2/answer_spec.rb'
+  end
+
+  scenario 'User adds files when edits the question', js: true do
+    sign_in(user)
+    visit question_path(question)
+    within '.question' do
+      click_on 'Edit'
+      click_on 'add file'
+      first('input[type="file"]').set("#{Rails.root}/spec/spec_helper.rb")
+      click_on 'Save'
+    end
+    expect(page).to have_link 'spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb'
   end
 end
