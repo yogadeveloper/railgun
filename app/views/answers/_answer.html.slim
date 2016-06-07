@@ -4,8 +4,7 @@ div id="answer-#{ answer.id }" class="answer"
         .best
           p= answer.body 
           ul
-            - answer.attachments.each do |a|
-              li= link_to a.file.identifier, a.file.url
+            = render answer.attachments
           p class="label label-primary" nice!                          
   - else
     - if answer.persisted?
@@ -21,6 +20,9 @@ div id="answer-#{ answer.id }" class="answer"
       = f.label :body, "Answer"
       = f.text_area :body
       = f.submit 'Save'
+
+      = render 'attachments/form', f: f
+
     - if current_user && current_user.owner_of?(@question)
       p= link_to 'Mark as Best', mark_as_best_answer_path(answer), remote: true, method: :patch
         

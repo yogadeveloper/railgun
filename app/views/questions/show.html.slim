@@ -8,8 +8,7 @@
     = f.label :body
     .answer-errors
     = f.text_area :body
-  p
-    =f.fields_for :attachments do |a|
-      =a.label :file
-      =a.file_field :file
+  
+  = render 'attachments/form', f: f
+  
   p= f.submit 'Reply'
