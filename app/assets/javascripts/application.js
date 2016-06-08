@@ -19,3 +19,4 @@
 //= require_tree .
 //= require_answers
 //= require_questions
+//= require_votables

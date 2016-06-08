@@ -5,7 +5,9 @@ div id="answer-#{ answer.id }" class="answer"
           p= answer.body 
           ul
             = render answer.attachments
-          p class="label label-primary" nice!                          
+          p class="label label-primary" nice! 
+      = render partial: 'votes/vote', locals: { votable: answer }
+                           
   - else
     - if answer.persisted?
         .page-header
@@ -13,6 +15,7 @@ div id="answer-#{ answer.id }" class="answer"
           ul
             - answer.attachments.each do |a|
               li= link_to a.file.identifier, a.file.url
+          = render partial: 'votes/vote', locals: { votable: answer }
   - if current_user && current_user.owner_of?(answer)
     p= link_to 'Delete answer', answer, remote: true, method: 'delete',  data: {confirm: 'Are you sure?'}
     p= link_to 'Edit', '',  class: 'edit-answer-link', data: { answer_id: answer.id }    
