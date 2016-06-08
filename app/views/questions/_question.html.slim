@@ -1,13 +1,11 @@
-div id="question-#{ @question.id }"
+div id="question-#{ @question.id }" class="question"
   h2= question.title
   p= question.body
+  p Attachments:
+  ul
+    = render question.attachments
   - if current_user && current_user.owner_of?(question)
-      = link_to 'Delete question', question, method: 'delete', class: 'btn btn-danger btn-secondary'
-      = link_to 'Edit', '', class: 'edit-question-link btn btn-warning', data: { question_id: question.id }
-      p  
-        = form_for question, remote: true, html: { id: "edit-question-#{question.id}"} do |f|
-          = f.label :title, "Title"
-          = f.text_field :title
-          = f.label :body, "Body"
-          = f.text_area :body
-          = f.submit 'Save'
+      p= link_to 'Delete question', question, method: 'delete', class: 'btn btn-danger btn-secondary'
+      p= link_to 'Edit', '', class: 'edit-question-link btn btn-warning', data: { question_id: question.id }
+      
+      =render 'form'  

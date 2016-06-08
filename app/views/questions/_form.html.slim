@@ -1,0 +1,15 @@
+= form_for @question, remote: true, html: { id: "edit-question-#{@question.id}"} do |f|
+  p 
+    = f.label :title, "Title"
+    = f.text_field :title
+  p
+    = f.label :body, "Body"
+    = f.text_area :body
+  
+  #attachments
+    = f.fields_for :attachments do |a|
+      = render 'attachments/attachment_fields', f: a  
+    .links
+      = link_to_add_association 'add file', f, :attachments, partial: 'attachments/attachment_fields'  
+
+  = f.submit 'Save'
