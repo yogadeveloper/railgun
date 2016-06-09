@@ -25,7 +25,7 @@ feature 'Vote Answer' do
     end
 
     scenario 'vote down', js: true do
-      within 'div#answer-1}' do
+      within 'div#answer-1' do
         click_on '-1'
         expect(page).to have_content 'Rating: -1'
         expect(page).to have_button('+1', disabled: true)

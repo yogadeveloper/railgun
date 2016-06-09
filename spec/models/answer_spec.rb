@@ -16,5 +16,7 @@ describe Answer do
   it { should have_db_column(:best).of_type(:boolean).with_options(default: false) }
 
 
-  it_behaves_like 'votable'
+  it_behaves_like 'votable' do
+    let(:votable) { create(:answer, user: user, question:question) }
+  end
 end

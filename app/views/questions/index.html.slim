@@ -1,9 +1,11 @@
 .container
-- @questions.each do |q|
   .row
-    div id="question-#{ q.id }" class="question"
-      = link_to q.title, q
+    .col-md-6.col-md-offset-3
+      - @questions.each do |q|
+        .page-header
+          div id="question-#{ q.id }" class="question"
+            h3= link_to q.title, q
 
-button class="btn btn-default"
-  = link_to 'Ask Question', new_question_path
+      button class="btn btn-default"
+        = link_to 'Ask Question', new_question_path
   

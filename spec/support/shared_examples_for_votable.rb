@@ -1,6 +1,7 @@
 shared_examples 'votable' do
   let(:user) { create(:user) }
   let(:user2) { create(:user) }
+  let(:question) { create(:question, user: user) }
   let(:votable) { create(described_class, user: user) }
 
   describe '#vote_up' do

@@ -5,22 +5,22 @@ module Votable
   end
 
   def vote_up(user)
-    votes.create(user: user, value: 1)
+    votes.create!(user: user, value: 1)
   end
 
   def vote_down(user)
-    votes.create(user: user, value: -1)
+    votes.create!(user: user, value: -1)
   end
 
   def remove_vote(user)
-    votes.exists?(user: user) && votes.find_by(user: user).destroy
+    voted_by?(user) && votes.find_by(user: user).destroy
   end
 
   def voted_by?(user)
-    votes.where(user: user).present?
+    votes.where(user: user).exists?
   end
 
   def rating
     votes.sum(:value)
-  end    
+  end
 end

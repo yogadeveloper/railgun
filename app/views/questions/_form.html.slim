@@ -1,10 +1,11 @@
 = form_for @question, remote: true, html: { id: "edit-question-#{@question.id}"} do |f|
-  p 
+  fieldset.form-group 
     = f.label :title, "Title"
-    = f.text_field :title
-  p
+    = f.text_field :title, class: "form-control"
+  
+  fieldset.form-group
     = f.label :body, "Body"
-    = f.text_area :body
+    = f.text_area :body, class: "form-control"
   
   #attachments
     = f.fields_for :attachments do |a|
