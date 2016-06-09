@@ -6,7 +6,7 @@
 
 ready = ->
   # Это наш обработчик, перенесенный сюда из docuement.ready ($ ->)
-  $('.edit-answer-link').click (e) -> 
+  $('.edit-answer-link').click (e) ->
     e.preventDefault();
     $(this).hide();
     answer_id = $(this).data('answerId')
@@ -17,4 +17,4 @@ ready = ->
 $(document).ready(ready) # "вешаем" функцию ready на событие document.ready
 $(document).on('page:load', ready)  # "вешаем" функцию ready на событие page:load
 $(document).on('page:update', ready) # "вешаем" функцию ready на событие page:update
-
+$(document).on('ajax:success', ready);

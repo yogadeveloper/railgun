@@ -12,6 +12,7 @@ feature 'Add files to question', %q{
   scenario 'User adds file when asks question', js: true do
     sign_in(user)
     visit new_question_path
+    save_and_open_page
     fill_in 'Title', with: 'Everything in its right place'
     fill_in 'Body',  with: 'Right, man?'
     click_on 'add file'

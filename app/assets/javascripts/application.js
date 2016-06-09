@@ -19,3 +19,9 @@
 //= require_tree .
 //= require_answers
 //= require_questions
+//= require_votables
+//= require_bootstrap.file-input
+
+
+$('input[type=file]').bootstrapFileInput();
+$('.file-inputs').bootstrapFileInput();

@@ -20,13 +20,13 @@ feature 'Answer editing', %q{
   describe 'Authenticated user' do
     before do
       sign_in(user)
-      visit question_path(question)     
+      visit question_path(question)
     end
 
     scenario 'sees link to Edit' do
       within '.answers' do
-        expect(page).to have_link 'Edit'    
-      end  
+        expect(page).to have_link 'Edit'
+      end
     end
 
     scenario "try to edit his answer", js: true do
@@ -34,17 +34,15 @@ feature 'Answer editing', %q{
         click_on 'Edit'
         fill_in 'Answer', with: 'edited answer'
         click_on 'Save'
-        
+
         expect(page).to_not have_content answer.body
         expect(page).to have_content 'edited answer'
         expect(page).to_not have_selector 'textarea'
       end
-    end    
+    end
 
     scenario "as non-author try to edit other user's question", js: true do
       within 'div#answer-2' do
-# Пробовал так:       
-#     within 'div#answer-#{ new_answer.id }' do --- не работает
         expect(page).to_not have_content 'Edit'
       end
     end

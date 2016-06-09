@@ -5,6 +5,7 @@ describe Answer do
   it { should belong_to :user }
 
   it { should have_many(:attachments).dependent(:destroy) }
+  it { should have_many(:votes).dependent(:destroy) }
 
   it { should accept_nested_attributes_for :attachments }
 
@@ -13,4 +14,9 @@ describe Answer do
   it { should validate_presence_of(:question_id) }
   it { should validate_presence_of(:user_id) }
   it { should have_db_column(:best).of_type(:boolean).with_options(default: false) }
+
+
+  it_behaves_like 'votable' do
+    let(:votable) { create(:answer, user: user, question:question) }
+  end
 end

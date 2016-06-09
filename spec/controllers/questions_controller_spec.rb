@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe QuestionsController, type: :controller do
   let(:question) { create(:question, user: user) }
   let(:user) { create(:user) }
+  let(:user2) { create(:user) }
+  let(:question2) { create(:question, user: user2) }
 
   describe 'GET #index' do
     let(:questions) { create_list(:question, 2, user: user) }
@@ -130,4 +132,85 @@ RSpec.describe QuestionsController, type: :controller do
       expect(response).to render_template :update
     end
   end
+
+  describe 'POST #vote_up' do
+    context 'non-owner' do
+      before do
+        sign_in(user2)
+      end
+
+      it 'up_vote the question' do
+        expect(question.rating).to eq 0
+        post :vote_up, model: question, id: question.id, rating: 1, format: :json
+        expect(question.rating).to eq 1
+      end
+    end
+
+    context 'question owner' do
+      before do
+        sign_in(user)
+      end
+
+      it "can't up_vote, returns error" do
+        expect(question.rating).to eq 0
+        post :vote_up, model: question, id: question.id, rating: 1, format: :json
+        expect(question.rating).to eq 0
+        expect(response.status).to eq 403
+      end
+    end
+  end
+
+  describe 'POST #vote_down' do
+    context 'non-owner' do
+      before do
+        sign_in(user2)
+      end
+
+      it 'down_vote the question' do
+        expect(question.rating).to eq 0
+        post :vote_down, model: question, id: question.id, rating: -1, format: :json
+        expect(question.rating).to eq(-1)
+      end
+    end
+
+    context "question's owner" do
+      before do
+        sign_in(user)
+      end
+
+      it "can't down_vote the question, returns error" do
+        expect(question.rating).to eq 0
+        post :vote_down, model: question, id: question.id, rating: -1, format: :json
+        expect(question.rating).to eq 0
+        expect(response.status).to eq 403
+      end
+    end
+  end
+
+  describe 'DELETE #remove_vote' do
+    context "question's non-owner" do
+      before do
+        sign_in(user2)
+      end
+
+      it 'remove vote' do
+        post :vote_up, model: question, id: question.id, rating: 1, format: :json
+        expect(question.rating).to eq 1
+        post :remove_vote, model: question, id: question.id, rating: 0, format: :json
+        expect(question.rating).to eq 0
+      end
+    end
+
+    context "question's owner" do
+      before do
+        sign_in(user)
+      end
+
+      it "can't remove the vote, returns error" do
+        post :remove_vote, model: question, id: question.id, rating: -1, format: :json
+        expect(response.status).to eq 403
+      end
+    end
+  end
+
 end
