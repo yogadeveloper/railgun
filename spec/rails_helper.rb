@@ -69,4 +69,9 @@ RSpec.configure do |config|
 
   config.include Devise::TestHelpers, type: :controller
   config.extend ControllerMacros, type: :controller
+
+  Capybara::Webkit.configure do |config|
+    config.block_unknown_urls
+  end
+
 end

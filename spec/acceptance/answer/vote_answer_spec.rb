@@ -3,7 +3,7 @@ require_relative '../acceptance_helper'
 feature 'Vote Answer' do
   given(:user) { create(:user) }
   given(:user2) { create(:user) }
-  given(:question) { create(:question, user: user2) }
+  given!(:question) { create(:question, user: user2) }
   given!(:answer) { create(:answer, question: question, user: user2) }
   given!(:answer2) { create(:answer, question: question, user: user) }
 

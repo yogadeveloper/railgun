@@ -1,14 +1,17 @@
-= render @question
+.row
+  .col-md-6
+    = render @question
 
 .answers id = "answers-list"
   = render @question.answers
-
-= form_for [@question, @answer], remote: true do |f|
-  p
-    = f.label :body
-    .answer-errors
-    = f.text_area :body
-  
-  = render 'attachments/form', f: f
-  
-  p= f.submit 'Reply'
+.row
+  .col-md-6
+    = form_for [@question, @answer], remote: true do |f|
+      fielset.form-group
+        = f.label :body
+        .answer-errors
+        = f.text_area :body, class: "form-control"
+      
+      = render 'attachments/form', f: f
+      
+      p= f.submit 'Reply'
