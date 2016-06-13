@@ -12,6 +12,7 @@ class QuestionsController < ApplicationController
     @answer = @question.answers.build
     @answers = @question.answers.new
     @answer.attachments.new
+    @comment = @question.comments.new
   end
 
   def new
@@ -36,7 +37,7 @@ class QuestionsController < ApplicationController
     if current_user.owner_of?(@question)
       if @question.destroy
         PrivatePub.publish_to "/questions/destroy", question: @question.to_json
-        flash[:notice] ='Question succesfully destroyed'
+        redirect_to root_path, notice: 'Question succesfully destroyed'
       end
     else
       render 'questions/show', notice: 'You are not the owner of this question'
