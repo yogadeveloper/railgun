@@ -1,11 +1,14 @@
 .container
   .row
     .col-md-6.col-md-offset-3
-      - @questions.each do |q|
-        .page-header
+      .questions-list
+        - @questions.each do |q|
           div id="question-#{ q.id }" class="question"
-            h3= link_to q.title, q
+            .page-header
+              h3= link_to q.title, q
 
+= subscribe_to "/questions"
+= subscribe_to "/questions/destroy"
       button class="btn btn-default"
         = link_to 'Ask Question', new_question_path
   

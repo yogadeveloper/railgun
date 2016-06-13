@@ -7,16 +7,19 @@ class AnswersController < ApplicationController
 
   def create
     @answer = @question.answers.create(answer_params.merge(user: current_user))
+    respond_to do |format|
+      if @answer.save
+        format.js
+      else
+        format.js
+      end
+    end
   end
 
   def destroy
     @answer = current_user.answers.find(params[:id])
     @answer.destroy if current_user.owner_of?(@answer)
-    if @answer.destroy
-      flash[:notice] = 'Your answer has been successfully removed'
-    else
-      render head: :forbidden
-    end
+    @question = @answer.question
   end
 
   def update

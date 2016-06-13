@@ -3,5 +3,7 @@
     $('.answer-errors').html('<%= j message %>');
   <% end %>
 <% else %>
-  $('<%= "#answer-#{ @answer.id }" %>').remove();
+  <% publish_to "/questions/#{@question.id}/answers/destroy" do %>
+    $('<%= "#answer-#{ @answer.id }" %>').remove();
+  <% end %>
 <% end %>

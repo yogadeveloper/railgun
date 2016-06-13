@@ -23,6 +23,8 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params.merge(user_id: current_user.id))
 
     if @question.save
+      PrivatePub.publish_to "/questions", question: @question.to_json
+
       redirect_to @question, notice: 'Question successfully created'
     else
       flash[:notice] = 'Title and body length should be no less than 5 letters'
@@ -32,9 +34,10 @@ class QuestionsController < ApplicationController
 
   def destroy
     if current_user.owner_of?(@question)
-      @question.destroy
-      redirect_to root_path
-      flash[:notice] ='Question succesfully destroyed'
+      if @question.destroy
+        PrivatePub.publish_to "/questions/destroy", question: @question.to_json
+        flash[:notice] ='Question succesfully destroyed'
+      end
     else
       render 'questions/show', notice: 'You are not the owner of this question'
     end
