@@ -31,6 +31,7 @@ gem 'devise'
 gem 'carrierwave'
 gem 'remotipart'
 gem 'cocoon'
+gem 'skim'
 gem 'private_pub'
 gem 'thin'
 

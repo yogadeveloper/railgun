@@ -1,4 +1,4 @@
-div id="question-#{ @question.id }" class="question"
+div id="question-#{ @question.id }" class="question" data={question_id: "#{question.id}"}
   h2= question.title
   = render partial: 'votes/vote', locals: { votable: @question }
   p= question.body

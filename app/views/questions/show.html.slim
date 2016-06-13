@@ -1,7 +1,15 @@
 .row
   .col-md-6
     = render @question
-
+    .question-comments
+      h3 Comments
+      = render @question.comments.order('created_at')
+      = subscribe_to "/question/#{@question.id}/comments"
+    - if current_user
+      .question-comment-form
+        = render 'comments/form', commentable: @question
+        = link_to 'Add comment', '', class: 'comment-question-link btn btn-warning'
+    
 .answers id = "answers-list" data={question_id: "#{@question.id}"}
   = render @question.answers
 .row

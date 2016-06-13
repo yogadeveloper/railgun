@@ -18,7 +18,7 @@
 //= require bootstrap-sprockets
 //= require cocoon
 //= require_tree .
+//= require_tree ./templates
 //= require_answers
 //= require_questions
 //= require_votables
-//= require_bootstrap.file-input
