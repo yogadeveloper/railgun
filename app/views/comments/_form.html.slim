@@ -1,5 +1,5 @@
 - if current_user
-  = form_for [commentable, @comment], remote: true do |f|
+  = form_for [commentable, Comment.new ], html: { id: "new-comment-#{commentable.class}-#{commentable.id}"}, remote: true do |f|
     p
       = f.label :body, 'Add comment'
       = f.text_area :body

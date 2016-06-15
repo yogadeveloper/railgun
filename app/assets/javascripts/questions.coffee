@@ -19,6 +19,11 @@ ready = ->
     question = $.parseJSON(data['question'])
     $('div#question-' + question.id).remove()
 
+  $('.comment-question-link').click (e) ->
+    e.preventDefault();
+    $(this).hide();
+    question_id = $(this).data('questionId')
+    $('form#new-comment-Question-' + question_id).show()
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

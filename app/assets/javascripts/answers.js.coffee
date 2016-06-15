@@ -13,6 +13,11 @@ ready = ->
     $('form#edit-answer-' + answer_id).show()
 
   #  Здесь могут быть другие обработчики событий и прочий код
+  $('.comment-answer-link').click (e) ->
+    e.preventDefault();
+    $(this).hide();
+    answer_id = $(this).data('answerId')
+    $('form#new-comment-Answer-' + answer_id).show()
 
 $(document).ready(ready) # "вешаем" функцию ready на событие document.ready
 $(document).on('page:load', ready)  # "вешаем" функцию ready на событие page:load

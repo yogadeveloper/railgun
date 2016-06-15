@@ -8,7 +8,7 @@ feature 'add some comment' do
     sign_in(user)
     visit question_path(question)
     click_on 'Add comment'
-    within 'form#new_comment' do
+    within('.question-comment-form') do
       fill_in 'Add comment', with: 'what are you doing, man?'
     end
     click_on 'Comment'

@@ -8,10 +8,11 @@
     - if current_user
       .question-comment-form
         = render 'comments/form', commentable: @question
-        = link_to 'Add comment', '', class: 'comment-question-link btn btn-warning'
+        = link_to 'Add comment', '', class: 'comment-question-link btn btn-warning', data: {question_id: @question.id } 
     
 .answers id = "answers-list" data={question_id: "#{@question.id}"}
   = render @question.answers
+= subscribe_to "/questions/#{@question.id}/answers"
 .row
   .col-md-6
     = form_for [@question, @answer], remote: true do |f|
@@ -23,5 +24,5 @@
       = render 'attachments/form', f: f
       
       p= f.submit 'Reply'
-    = subscribe_to "/questions/#{@question.id}/answers"
     = subscribe_to "/questions/#{@question.id}/answers/destroy"
+= subscribe_to "/comments"

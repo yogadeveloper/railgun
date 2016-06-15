@@ -12,36 +12,31 @@ feature 'Vote Question' do
     end
 
     scenario 'votes for question', js: true do
-      within 'div#question-1' do
-        click_on '+1'
+      click_on '+1'
 
-        expect(page).to have_content 'Rating: 1'
-        expect(page).to have_button('+1', disabled: true)
-        expect(page).to have_button('-1', disabled: true)
-        expect(page).to have_button('remove', disabled: false)
-      end
+      expect(page).to have_content 'Rating: 1'
+      expect(page).to have_button('+1', disabled: true)
+      expect(page).to have_button('-1', disabled: true)
+      expect(page).to have_button('remove', disabled: false)
     end
 
     scenario 'vote down', js: true do
-      within 'div#question-1}' do
-        click_on '-1'
-        expect(page).to have_content 'Rating: -1'
-        expect(page).to have_button('+1', disabled: true)
-        expect(page).to have_button('-1', disabled: true)
-        expect(page).to have_button('remove', disabled: false)
-      end
+      click_on '-1'
+
+      expect(page).to have_content 'Rating: -1'
+      expect(page).to have_button('+1', disabled: true)
+      expect(page).to have_button('-1', disabled: true)
+      expect(page).to have_button('remove', disabled: false)
     end
 
     scenario 'remove vote', js: true do
-      within 'div#question-1' do
-        click_on '+1'
-        click_on 'remove'
+      click_on '+1'
+      click_on 'remove'
 
-        expect(page).to have_content 'Rating: 0'
-        expect(page).to have_button('+1', disabled: false)
-        expect(page).to have_button('-1', disabled: false)
-        expect(page).to have_button('remove', disabled: true)
-      end
+      expect(page).to have_content 'Rating: 0'
+      expect(page).to have_button('+1', disabled: false)
+      expect(page).to have_button('-1', disabled: false)
+      expect(page).to have_button('remove', disabled: true)
     end
   end
 
@@ -52,12 +47,10 @@ feature 'Vote Question' do
     end
 
     scenario "can't vote for his own question", js: true do
-      within "div#question-1" do
-        expect(page).to have_content 'Rating:'
-        expect(page).to_not have_button('+1')
-        expect(page).to_not have_button('-1')
-        expect(page).to_not have_button('remove')
-      end
+      expect(page).to have_content 'Rating:'
+      expect(page).to_not have_button('+1')
+      expect(page).to_not have_button('-1')
+      expect(page).to_not have_button('remove')
     end
   end
 

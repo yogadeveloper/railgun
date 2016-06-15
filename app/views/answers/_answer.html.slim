@@ -1,33 +1,40 @@
-div id="answer-#{ answer.id }" class="answer"
-  - if answer.best
-      .page-header
-        .best
-          p= answer.body 
-          ul
-            = render answer.attachments
-          p class="label label-primary" nice! 
-      = render partial: 'votes/vote', locals: { votable: answer }
-                           
-  - else
-    - if answer.persisted?
+-if answer.persisted?
+  div id="answer-#{ answer.id }" class="answer"
+    - if answer.best
+        .page-header
+          .best
+            p= answer.body 
+            ul
+              = render answer.attachments
+            p class="label label-primary" nice! 
+        = render partial: 'votes/vote', locals: { votable: answer }
+    - else
         .page-header
           p = answer.body
           ul
             - answer.attachments.each do |a|
               li= link_to a.file.identifier, a.file.url
           = render partial: 'votes/vote', locals: { votable: answer }
-  - if current_user && current_user.owner_of?(answer)
-    ul#inline class="ul-border"  
-      li
-        = link_to 'Edit', '',  class: 'edit-answer-link', data: { answer_id: answer.id }    
-        = form_for answer, remote: true, html: { id: "edit-answer-#{answer.id}"} do |f|
-          p
-            = f.label :body, "Answer"
-            = f.text_area :body
-          p
-            = f.submit 'Save'
           
-          = render 'attachments/form', f: f   
-        - if current_user && current_user.owner_of?(@question)
-          li= link_to 'Mark as Best', mark_as_best_answer_path(answer), remote: true, method: :patch
-        li= link_to 'Delete answer', answer, remote: true, method: 'delete',  data: {confirm: 'Are you sure?'}
+    - if current_user && current_user.owner_of?(answer)
+      ul#inline class="ul-border"  
+        li
+          = link_to 'Edit', '',  class: 'edit-answer-link', data: { answer_id: answer.id }    
+          = form_for answer, remote: true, html: { id: "edit-answer-#{answer.id}"} do |f|
+            p
+              = f.label :body, "Answer"
+              = f.text_area :body
+            p
+              = f.submit 'Save'
+            
+            = render 'attachments/form', f: f 
+          - if current_user && current_user.owner_of?(answer)
+            li= link_to 'Mark as Best', mark_as_best_answer_path(answer), remote: true, method: :patch
+            li= link_to 'Delete answer', answer, remote: true, method: 'delete',  data: {confirm: 'Are you sure?'}
+    .answer-comments
+      h3 Comments
+      = render answer.comments.order('created_at')
+  - if current_user
+    .answer-comment-form
+      = render 'comments/form', commentable: answer
+      = link_to 'Add comment', '', class: 'comment-answer-link btn btn-warning', data: {answer_id: answer.id }          
