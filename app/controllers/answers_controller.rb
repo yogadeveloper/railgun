@@ -3,7 +3,10 @@ class AnswersController < ApplicationController
 
   before_action :authenticate_user!
   before_action :load_question, only: [:create]
-  before_action :load_answer, only: [:update, :mark_as_best]
+  before_action :load_answer, only: [:update, :destroy, :mark_as_best]
+  before_action :author?, only: [:update, :destroy]
+
+  respond_to :js, only: [:create, :update, :destroy]
 
   def create
     @answer = @question.answers.create(answer_params.merge(user: current_user))
@@ -12,26 +15,27 @@ class AnswersController < ApplicationController
 
   def destroy
     @answer = current_user.answers.find(params[:id])
-    @answer.destroy if current_user.owner_of?(@answer)
     @question = @answer.question
+    respond_with(@answer.destroy)
   end
 
   def update
+    respond_with(@answer.update(answer_params))
     @question = @answer.question
-    if current_user.owner_of?(@answer)
-      @answer.update(answer_params)
-      @question = @answer.question
-    end
   end
 
   def mark_as_best
     @question = @answer.question
     if current_user.owner_of?(@question)
       @answer.make_best!
+    end
   end
-end
 
-private
+  private
+
+  def author?
+    redirect_to_question unless current_user.owner_of?(@answer)
+  end
 
   def load_answer
     @answer = Answer.find(params[:id])

@@ -21,7 +21,7 @@
         .answer-errors
         = f.text_area :body, class: "form-control"
       
-      = render 'attachments/form', f: f
+      = render 'attachments/form', f: f, attached:  @answer.attachments.build
       
       p= f.submit 'Reply'
     = subscribe_to "/questions/#{@question.id}/answers/destroy"
