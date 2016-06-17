@@ -7,6 +7,23 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '151385155278830',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
   <div class="container">
     <nav class="navbar navbar-light bg-faded">
       <ul class="nav navbar-nav">
@@ -43,7 +60,12 @@
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
 
-
+  <div
+    class="fb-like"
+    data-share="true"
+    data-width="450"
+    data-show-faces="true">
+  </div>
 <%= yield %>
 </div>
 </body>
