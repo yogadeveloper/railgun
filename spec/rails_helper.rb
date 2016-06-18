@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'shoulda-matchers'
 require 'bundler/setup'
+require 'capybara/email/rspec'
 ::Bundler.require(:default, :test)
 
 ::Shoulda::Matchers.configure do |config|

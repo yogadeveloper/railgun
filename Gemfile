@@ -37,6 +37,7 @@ gem 'thin'
 gem 'responders'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -48,6 +49,7 @@ group :development do
   gem 'spring'
   gem 'rubocop', require: false
   gem 'slim_lint', '~> 0.7.2', require: false
+  gem "letter_opener"
 end
 
 group :test, :development do
@@ -55,6 +57,7 @@ group :test, :development do
   gem 'factory_girl', '~> 4.7', require: false
   gem 'database_cleaner'
   gem 'capybara-webkit'
+  gem 'capybara-email'
 end
 
 group :test do
