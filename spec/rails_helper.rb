@@ -1,7 +1,7 @@
-# frozen_string_literal: true
 require 'shoulda-matchers'
 require 'bundler/setup'
 require 'capybara/email/rspec'
+
 ::Bundler.require(:default, :test)
 
 ::Shoulda::Matchers.configure do |config|
@@ -48,6 +48,8 @@ require 'factory_girl'
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
+
+OmniAuth.config.test_mode = true
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

@@ -7,6 +7,7 @@ RSpec.describe User do
   it { should have_many(:questions) }
   it { should have_many(:answers) }
   it { should have_many(:comments) }
+  it { should have_many(:authorizations).dependent(:destroy) }
 
   it { should respond_to(:owner_of?) }
 
@@ -28,6 +29,7 @@ RSpec.describe User do
   describe '.find_for_oauth' do
     let!(:user) { create(:user) }
     let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456') }
+
     context 'User already has authorization' do
       it 'returns the user' do
         user.authorizations.create(provider: 'facebook', uid: '123456')
@@ -50,9 +52,9 @@ RSpec.describe User do
         it 'creates authorization with provider and uid' do
           authorization = User.find_for_oauth(auth).authorizations.first
 
-
           expect(authorization.provider).to eq auth.provider
           expect(authorization.uid).to eq auth.uid
+          expect(authorization.confirmed).to eq false
         end
 
         it 'returns the user' do
@@ -85,6 +87,7 @@ RSpec.describe User do
 
           expect(authorization.provider).to eq auth.provider
           expect(authorization.uid).to eq auth.uid
+          expect(authorization.confirmed).to eq true
         end
       end
     end

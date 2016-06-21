@@ -49,7 +49,6 @@ group :development do
   gem 'spring'
   gem 'rubocop', require: false
   gem 'slim_lint', '~> 0.7.2', require: false
-  gem "letter_opener"
 end
 
 group :test, :development do
@@ -57,11 +56,13 @@ group :test, :development do
   gem 'factory_girl', '~> 4.7', require: false
   gem 'database_cleaner'
   gem 'capybara-webkit'
-  gem 'capybara-email'
+  gem "letter_opener"
 end
 
 group :test do
    gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git'
    gem 'capybara'
+   gem 'capybara-email'
    gem 'launchy'
+   gem 'selenium-webdriver'
 end

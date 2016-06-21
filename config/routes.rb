@@ -9,6 +9,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :authorizations, only: [:new, :create]
+  get 'confirm_auth', controller: :authorizations
+  get 'resend_confirmation_email', controller: :authorizations
+
   resources :questions, concerns: :votable do
     resources :comments, defaults: { commentable: 'questions' }
 
