@@ -1,14 +1,28 @@
-= render @question
-
-.answers id = "answers-list"
+.row
+  .col-md-6
+    = render @question
+    .question-comments
+      h3 Comments
+      = render @question.comments.order('created_at')
+      = subscribe_to "/question/#{@question.id}/comments"
+    - if current_user
+      .question-comment-form
+        = render 'comments/form', commentable: @question
+        = link_to 'Add comment', '', class: 'comment-question-link btn btn-warning', data: {question_id: @question.id } 
+    
+.answers id = "answers-list" data={question_id: "#{@question.id}"}
   = render @question.answers
-
-= form_for [@question, @answer], remote: true do |f|
-  p
-    = f.label :body
-    .answer-errors
-    = f.text_area :body
-  
-  = render 'attachments/form', f: f
-  
-  p= f.submit 'Reply'
+= subscribe_to "/questions/#{@question.id}/answers"
+.row
+  .col-md-6
+    = form_for [@question, @answer], remote: true do |f|
+      fielset.form-group
+        = f.label :body
+        .answer-errors
+        = f.text_area :body, class: "form-control"
+      
+      = render 'attachments/form', f: f, attached:  @answer.attachments.build
+      
+      p= f.submit 'Reply'
+    = subscribe_to "/questions/#{@question.id}/answers/destroy"
+= subscribe_to "/comments"

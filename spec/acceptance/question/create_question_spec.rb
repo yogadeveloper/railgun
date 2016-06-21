@@ -15,8 +15,7 @@ feature 'create question', %q{
     fill_in 'Title', with: 'Everything in its right place'
     fill_in 'Body',  with: 'Right, man?'
     click_on 'Create'
-    save_and_open_page 
-    expect(page).to have_content "Question successfully created"
+    expect(page).to have_content "Question was successfully created."
     expect(page).to have_content "Everything in its right place"
     expect(page).to have_content "Right, man?"
   end
@@ -29,7 +28,8 @@ feature 'create question', %q{
     fill_in 'Title', with: 's'
     fill_in 'Body',  with: 'q'
     click_on 'Create'
-    expect(page).to have_content "Title and body length should be no less than 5 letters"
+    save_and_open_page
+    expect(page).to have_content "Question's title and body length should be no less than 5 letters."
   end
 
 

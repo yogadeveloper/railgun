@@ -3,40 +3,33 @@ class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
   before_action :load_question, only: [:show, :destroy, :update]
+  before_action :build_answer, only: :show
+  before_action :author?, only: [:destroy]
+  after_action :publish_question, only: :create
+  after_action :publish_destroy, only: :destroy
+
+  respond_to :js, only: [:update]
 
   def index
-    @questions = Question.all
+    respond_with(@questions = Question.all)
   end
 
   def show
-    @answer = @question.answers.build
-    @answers = @question.answers.new
-    @answer.attachments.new
+    respond_with @question
   end
 
   def new
-    @question = Question.new
-    @question.attachments.build
+    respond_with(@question = Question.new)
   end
 
   def create
-    @question = Question.new(question_params.merge(user_id: current_user.id))
-
-    if @question.save
-      redirect_to @question, notice: 'Question successfully created'
-    else
-      flash[:notice] = 'Title and body length should be no less than 5 letters'
-      render :new
-    end
+    respond_with(@question = Question.create(question_params.merge(user_id: current_user.id)))
   end
 
   def destroy
     if current_user.owner_of?(@question)
       @question.destroy
-      redirect_to root_path
-      flash[:notice] ='Question succesfully destroyed'
-    else
-      render 'questions/show', notice: 'You are not the owner of this question'
+      redirect_to root_path, notice: 'Question succesfully destroyed'
     end
   end
 
@@ -45,6 +38,27 @@ class QuestionsController < ApplicationController
   end
 
   private
+
+  def publish_question
+    PrivatePub.publish_to("/questions", question: @question.to_json) if @question.valid?
+  end
+
+  def publish_destroy
+    PrivatePub.publish_to("/questions/destroy", question: @question.to_json)
+  end
+
+  def author?
+    redirect_to_question if !current_user.owner_of?(@question)
+  end
+
+  def redirect_to_question
+    redirect_to @question
+    flash[:notice] = 'You are not the owner of this question'
+  end
+
+  def build_answer
+     @answer = @question.answers.build
+  end
 
   def load_question
     @question = Question.find(params[:id])

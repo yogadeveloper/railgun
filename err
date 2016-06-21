@@ -1,0 +1,1 @@
+can not load translations from /home/shiv/devrails/railgun/config/locales/responders.en.yml: #<Psych::SyntaxError: (/home/shiv/devrails/railgun/config/locales/responders.en.yml): did not find expected key while parsing a block mapping at line 5 column 9>

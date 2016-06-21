@@ -9,6 +9,22 @@ ready = ->
     question_id = $(this).data('questionId')
     $('form#edit-question-' + question_id).show();
 
+  PrivatePub.subscribe "/questions", (data, channel) ->
+    question = $.parseJSON(data['question'])
+    $('.questions-list').append("<div id=question-#{question.id}><div class=page-header>
+                <h3><a href=/questions/#{question.id}>" + question.title + '</a></h1></div></div>')
+
+  PrivatePub.subscribe "/questions/destroy", (data, channel) ->
+    console.log(data)
+    question = $.parseJSON(data['question'])
+    $('div#question-' + question.id).remove()
+
+  $('.comment-question-link').click (e) ->
+    e.preventDefault();
+    $(this).hide();
+    question_id = $(this).data('questionId')
+    $('form#new-comment-Question-' + question_id).show()
+
 $(document).ready(ready)
 $(document).on('page:load', ready)
 $(document).on('page:update', ready)

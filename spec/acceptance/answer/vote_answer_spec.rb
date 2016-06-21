@@ -3,7 +3,7 @@ require_relative '../acceptance_helper'
 feature 'Vote Answer' do
   given(:user) { create(:user) }
   given(:user2) { create(:user) }
-  given(:question) { create(:question, user: user2) }
+  given!(:question) { create(:question, user: user2) }
   given!(:answer) { create(:answer, question: question, user: user2) }
   given!(:answer2) { create(:answer, question: question, user: user) }
 
@@ -14,7 +14,7 @@ feature 'Vote Answer' do
     end
 
     scenario 'votes for answer', js: true do
-      within 'div#answer-1' do
+      within '.answer:first-of-type' do
         click_on '+1'
 
         expect(page).to have_content 'Rating: 1'
@@ -25,7 +25,7 @@ feature 'Vote Answer' do
     end
 
     scenario 'vote down', js: true do
-      within 'div#answer-1' do
+      within '.answer:first-of-type' do
         click_on '-1'
         expect(page).to have_content 'Rating: -1'
         expect(page).to have_button('+1', disabled: true)
@@ -35,7 +35,7 @@ feature 'Vote Answer' do
     end
 
     scenario 'remove vote', js: true do
-      within 'div#answer-1' do
+      within '.answer:first-of-type' do
         click_on '+1'
         click_on 'remove'
 

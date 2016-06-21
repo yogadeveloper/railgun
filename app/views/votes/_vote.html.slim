@@ -1,5 +1,6 @@
 .votes
-  .rating.label.label-info Rating: #{votable.rating}
+  .rating
+    p.label.label-info Rating: #{votable.rating}
   br
   - if current_user && current_user.id != votable.user_id
     .buttons
