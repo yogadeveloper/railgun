@@ -38,6 +38,8 @@ gem 'responders'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
+gem "font-awesome-rails"
+gem 'cancancan'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -57,12 +59,12 @@ group :test, :development do
   gem 'database_cleaner'
   gem 'capybara-webkit'
   gem "letter_opener"
+  gem 'capybara'
+  gem 'launchy'
+  gem 'selenium-webdriver'
 end
 
 group :test do
    gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git'
-   gem 'capybara'
    gem 'capybara-email'
-   gem 'launchy'
-   gem 'selenium-webdriver'
 end

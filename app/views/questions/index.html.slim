@@ -4,8 +4,20 @@
       .questions-list
         - @questions.each do |q|
           div id="question-#{ q.id }" class="question"
-            .page-header
-              h3= link_to q.title, q
+            .page-header.col-md-12
+              .stats.col-md-4
+                .rating.col-md-2
+                  .mini-counts.text-center 
+                    = q.rating 
+                    br
+                    span votes
+                .answers-count.col-md-2
+                  .mini-counts.text-center
+                    = q.answers.count
+                  .text-center
+                    span answers
+              .question-title.col-md-8
+                h3= link_to q.title, q
 
 = subscribe_to "/questions"
 = subscribe_to "/questions/destroy"
