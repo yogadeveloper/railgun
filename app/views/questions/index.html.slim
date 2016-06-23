@@ -21,6 +21,7 @@
 
 = subscribe_to "/questions"
 = subscribe_to "/questions/destroy"
-      button class="btn btn-default"
-        = link_to 'Ask Question', new_question_path
+-if can?(:create, Question)
+  button class="btn btn-default"
+    = link_to 'Ask Question', new_question_path
   

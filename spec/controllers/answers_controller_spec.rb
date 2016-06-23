@@ -115,7 +115,7 @@ RSpec.describe AnswersController, type: :controller do
         expect(answer.rating).to eq 0
         post :vote_up, model: answer, id: answer.id, rating: 1, format: :json
         expect(answer.rating).to eq 0
-        expect(response.status).to eq 403
+        expect(response.status).to eq 302
       end
     end
   end
@@ -142,7 +142,7 @@ RSpec.describe AnswersController, type: :controller do
         expect(answer.rating).to eq 0
         post :vote_down, model: answer, id: answer.id, rating: -1, format: :json
         expect(answer.rating).to eq 0
-        expect(response.status).to eq 403
+        expect(response.status).to eq 302
       end
     end
   end
@@ -168,7 +168,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it "can't remove vote, returns error" do
         post :remove_vote, model: answer, id: answer.id, rating: -1, format: :json
-        expect(response.status).to eq 403
+        expect(response.status).to eq 302
       end
     end
   end

@@ -1,6 +1,7 @@
 require 'capybara/email/rspec'
 require 'shoulda-matchers'
 require 'bundler/setup'
+require 'cancan/matchers'
 
 ::Bundler.require(:default, :test)
 

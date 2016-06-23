@@ -6,7 +6,10 @@ class AnswersController < ApplicationController
   before_action :load_answer, only: [:update, :destroy, :mark_as_best]
   before_action :author?, only: [:update, :destroy]
 
+  authorize_resource
+
   respond_to :js, only: [:create, :update, :destroy]
+
 
   def create
     @answer = @question.answers.create(answer_params.merge(user: current_user))

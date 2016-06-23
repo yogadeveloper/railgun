@@ -6,6 +6,7 @@ module Voted
   end
 
   def vote_up
+    authorize! :vote_up, @votable
     if current_user && current_user.owner_of?(@votable)
       render nothing: true, status: 403
     else
@@ -15,6 +16,7 @@ module Voted
   end
 
   def vote_down
+    authorize! :vote_down, @votable
     if current_user && current_user.owner_of?(@votable)
       render nothing: true, status: 403
     else
@@ -24,6 +26,7 @@ module Voted
   end
 
   def remove_vote
+    authorize! :remove_vote, @votable
     if current_user && current_user.owner_of?(@votable)
       render nothing: true, status: 403
     else
