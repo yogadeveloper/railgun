@@ -1,5 +1,5 @@
 class AuthorizationsController < ApplicationController
-  #skip_authorization_check
+  skip_authorization_check
 
   def new
   end

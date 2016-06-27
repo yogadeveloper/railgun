@@ -20,7 +20,7 @@ feature 'Omniauth' do
       expect(page).to have_content 'Please confirm authorization by email'
 
       open_email(user.email)
-      current_email.click_on 'confirm'
+      current_email.click_link 'confirm'
 
       expect(page).to have_content 'Successfully authenticated from facebook account.'
     end
@@ -76,7 +76,7 @@ feature 'Omniauth' do
       expect(page).to have_content 'Email has been sent. Please confirm your authorization.'
 
       open_email(user.email)
-      current_email.click_on 'confirm'
+      current_email.click_link 'confirm'
 
       expect(page).to have_content 'Successfully authenticated from twitter account.'
     end
@@ -118,7 +118,6 @@ feature 'Omniauth' do
 
       expect(page).to have_content 'Email has been sent. Please confirm your authorization.'
       open_email(user.email)
-      save_and_open_page
       current_email.click_link 'confirm'
       expect(page).to have_content 'Successfully authenticated from twitter account.'
     end

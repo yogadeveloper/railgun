@@ -115,7 +115,7 @@ RSpec.describe QuestionsController, type: :controller do
     end
 
     it 'changes question attr' do
-      patch :update, id: question, user_id: user, question: { body: 'some...body' }, format: :js
+      patch :update, id: question, user_id: user.id, question: { body: 'some...body' }, format: :js
       question.reload
       expect(question.body).to eq 'some...body'
     end
@@ -147,7 +147,7 @@ RSpec.describe QuestionsController, type: :controller do
         expect(question.rating).to eq 0
         post :vote_up, model: question, id: question.id, rating: 1, format: :json
         expect(question.rating).to eq 0
-        expect(response.status).to eq 403
+        expect(response.status).to eq 302
       end
     end
   end
@@ -174,7 +174,7 @@ RSpec.describe QuestionsController, type: :controller do
         expect(question.rating).to eq 0
         post :vote_down, model: question, id: question.id, rating: -1, format: :json
         expect(question.rating).to eq 0
-        expect(response.status).to eq 403
+        expect(response.status).to eq 302
       end
     end
   end
@@ -200,7 +200,7 @@ RSpec.describe QuestionsController, type: :controller do
 
       it "can't remove the vote, returns error" do
         post :remove_vote, model: question, id: question.id, rating: -1, format: :json
-        expect(response.status).to eq 403
+        expect(response.status).to eq 302
       end
     end
   end

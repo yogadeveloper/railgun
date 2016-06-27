@@ -4,11 +4,13 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :load_question, only: [:show, :destroy, :update]
   before_action :build_answer, only: :show
-  before_action :author?, only: [:destroy]
+#  before_action :author?, only: [:destroy]
   after_action :publish_question, only: :create
   after_action :publish_destroy, only: :destroy
 
   respond_to :js, only: [:update]
+
+  authorize_resource
 
   def index
     respond_with(@questions = Question.all)
