@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+
   concern :votable do
     member do
       post 'vote_up'
@@ -7,6 +8,10 @@ Rails.application.routes.draw do
       delete 'remove_vote'
     end
   end
+
+  resources :authorizations, only: [:new, :create]
+  get 'confirm_auth', controller: :authorizations
+  get 'resend_confirmation_email', controller: :authorizations
 
   resources :questions, concerns: :votable do
     resources :comments, defaults: { commentable: 'questions' }
