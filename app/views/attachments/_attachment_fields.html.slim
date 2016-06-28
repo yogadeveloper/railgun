@@ -1,7 +1,7 @@
 .nested-fields
   - if f.object.new_record?
     = f.label :file, style: "display: none"
-    = f.file_field :file
+    = f.file_field :file, class: "btn btn-default"
   - else
     p
       = f.object.file.filename

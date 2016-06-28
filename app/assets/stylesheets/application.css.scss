@@ -4,6 +4,8 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 @import "questions";
 @import "font-awesome";
+@import "sidebar";
+@import "answers";
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -17,9 +19,17 @@
  * file per style scope.
  *
  */
-h1, h2, h3, h4 { font-family: 'Ubuntu'; }
+
+// Variables
+
+$accent-color: #286090;
+$danger-color: #d43f3a;
+$info-color: #eea236;
+$desaturate: 20%;
+
+h1, h2, h3, h4 { font-family: inherit; font-weight: 100; }
 h2 { color: #24678d }
-body { font-family: 'Open sans', sans-serif; color: #8e8e8e; font-size: 16px; line-height: 28px }
+body { font-family: 'Open sans', sans-serif; color: #3e3e3e; font-size: 15px; line-height: 24px }
 p { padding-bottom: 18px }
 
 ul#inline li { display: inline; padding: 0 5px; }
@@ -28,3 +38,36 @@ form#inline { display: inline; }
 .edit_answer { display: none; }
 .edit_question { display: none; }
 .new_comment { display: none; }
+
+// Input type
+input[type=file] { margin: 10px 0; }
+
+.bg-info { color: #f9f9f9; background-color: #615e5e; }
+
+
+.btn { border-radius: 20px; background-color: transparent !important; }
+.btn-danger  {
+  color: $danger-color;
+  border-color: $danger-color;
+  &:hover {
+    color: desaturate( $danger-color, $desaturate );
+    border-color: desaturate($danger-color, $desaturate );
+  }
+}
+
+.btn-warning {
+  color: $info-color;
+  border-color: $info-color;
+  &:hover {
+    color: desaturate( $info-color, $desaturate );
+    border-color: desaturate($info-color, $desaturate);
+  }}
+
+  .btn-primary {
+    color: $accent-color;
+    border-color: $accent-color;
+    &:hover {
+      color: desaturate( $accent-color, $desaturate );
+      border-color: desaturate($accent-color, $desaturate);
+    }
+   }

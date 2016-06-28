@@ -2,4 +2,5 @@
   = f.fields_for :attachments, :attached do |a|
     = render 'attachments/attachment_fields', f: a
   .links
-    = link_to_add_association 'add file', f, :attachments, partial: 'attachments/attachment_fields'
+    = link_to_add_association 'add file', f, :attachments, partial: 'attachments/attachment_fields', 
+                                             style: "padding-left: 5px"

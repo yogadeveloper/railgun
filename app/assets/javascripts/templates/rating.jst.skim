@@ -1,0 +1,1 @@
+p.label.label-info Rating: #{@rating }
