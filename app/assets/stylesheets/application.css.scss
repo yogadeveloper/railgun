@@ -42,6 +42,11 @@ form#inline { display: inline; }
 // Input type
 input[type=file] { margin: 10px 0; }
 
+// Alert and Notice
+
+.notice { padding-top: 15px; padding-left: 25px; }
+.alert { padding-top: 15px; padding-left: 25px; }
+
 .bg-info { color: #f9f9f9; background-color: #615e5e; }
 
 
