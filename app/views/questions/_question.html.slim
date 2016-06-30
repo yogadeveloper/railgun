@@ -19,7 +19,7 @@ div id="question-#{ @question.id }" class="question" data={question_id: "#{quest
                                                                  data: { question_id: question.id }, id: "inline"
           
         = render 'form'  
-      .question-comments
+      .question-comments id="#{@question.id}"
         = render @question.comments.order('created_at')
         = subscribe_to "/question/#{@question.id}/comments"
       - if current_user

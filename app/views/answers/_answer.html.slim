@@ -13,16 +13,18 @@
                 ul
                   = render answer.attachments
                 = render partial: 'answers/answer_control', locals: { answer: answer }
+                = render partial: 'answers/comments', locals: { answer: answer}
         - else
           .col-md-2
-           = render partial: 'votes/vote', locals: { votable: answer }
+            = render partial: 'votes/vote', locals: { votable: answer }
           .col-md-8
-           .page-header
-             p = answer.body
-             - if answer.attachments.exists?
-               ul#inline class="ul-border"
-                 li 
-                   span Attached files
-                 - answer.attachments.each do |a|
-                   li= link_to a.file.identifier, a.file.url
-             = render partial: 'answers/answer_control', locals: { answer: answer }
+            .page-header
+              p = answer.body
+              - if answer.attachments.exists?
+                ul#inline class="ul-border"
+                  li 
+                    span Attached files
+                  - answer.attachments.each do |a|
+                    li= link_to a.file.identifier, a.file.url
+              = render partial: 'answers/answer_control', locals: { answer: answer }
+              = render partial: 'answers/comments', locals: { answer: answer}

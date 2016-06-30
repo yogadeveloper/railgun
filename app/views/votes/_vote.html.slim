@@ -1,6 +1,8 @@
 .votes
   .rating
-    p.label.label-info Rating: #{votable.rating}
+    .rating-view
+      i.fa.fa-star-o aria-hidden="true"
+      p #{votable.rating}
   br
   - if current_user && current_user.id != votable.user_id
     .buttons
