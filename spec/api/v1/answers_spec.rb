@@ -7,21 +7,11 @@ describe 'Answer API' do
   let(:access_token){ create(:access_token, resource_owner_id: user.id) }
 
   describe 'GET /index' do
-    context 'unauthorized' do
-      it 'returns 401 if there is no access_token' do
-        get "/api/v1/questions/#{question.id}/answers", format: :json
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 if access_token is invalid' do
-        get "/api/v1/questions/#{question.id}/answers", format: :json, access_token: '123456'
-        expect(response.status).to eq 401
-      end
-    end
+    it_behaves_like "API Authenticable"
 
     context 'authorized' do
       before do
-        get "/api/v1/questions/#{question.id}/answers", format: :json, access_token: access_token.token
+        do_request(access_token: access_token.token)
       end
 
       it 'returns 200 status' do
@@ -38,27 +28,21 @@ describe 'Answer API' do
         end
       end
     end
+
+    def do_request(options = {})
+      get "/api/v1/questions/#{question.id}/answers", { format: :json }.merge(options)
+    end
   end
 
   describe 'GET /show' do
-    context 'unauthorized' do
-      it 'returns 401 if there is no access_token' do
-        get "/api/v1/questions/#{question.id}/answers/#{answer.id}", format: :json
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 if access_token is invalid' do
-        get "/api/v1/questions/#{question.id}/answers/#{answer.id}", format: :json, access_token: '123456'
-        expect(response.status).to eq 401
-      end
-    end
+    it_behaves_like "API Authenticable"
 
     context 'authorized' do
       let!(:comment){ create(:comment, commentable: answer) }
       let!(:attachment){ create(:attachment, attachable: answer) }
 
       before do
-        get "/api/v1/questions/#{question.id}/answers/#{answer.id}", format: :json, access_token: access_token.token
+        do_request(access_token: access_token.token)
       end
 
       it 'returns 200 status' do
@@ -97,54 +81,20 @@ describe 'Answer API' do
         end
       end
     end
-  end
 
-  describe 'POST #create' do
-    describe 'unauthorized' do
-      it 'returns 401 if there is no access_token' do
-        post "/api/v1/questions/#{question.id}/answers", format: :json, answer: attributes_for(:answer)
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 if access_token is invalid' do
-        post "/api/v1/questions/#{question.id}/answers", format: :json, access_token: '123456',
-                                                                        answer: attributes_for(:answer)
-        expect(response.status).to eq 401
-      end
-    end
-
-    describe 'authorized' do
-      context 'with valid answer data' do
-        let(:post_valid_answer) do
-          post "/api/v1/questions/#{question.id}/answers", format: :json, access_token: access_token.token,
-                                                                          answer: attributes_for(:answer)
-        end
-
-        it 'returns 201 status' do
-          post_valid_answer
-          expect(response).to be_success
-        end
-
-        it 'creates new answer' do
-          expect{ post_valid_answer }.to change(question.answers, :count).by(1)
-        end
-      end
-
-      context 'with invalid_answer_data' do
-        let(:post_invalid_answer) do
-          post "/api/v1/questions/#{question.id}/answers", format: :json, access_token: access_token.token,
-                                                                          answer: attributes_for(:invalid_answer)
-        end
-
-        it 'returns 422 status' do
-          post_invalid_answer
-          expect(response).to_not be_success
-        end
-
-        it 'does not create answer' do
-          expect{ post_invalid_answer }.to_not change(Answer, :count)
-        end
-      end
+    def do_request(options = {})
+      get "/api/v1/questions/#{question.id}/answers/#{answer.id}", { format: :json }.merge(options)
     end
   end
+
+  #describe 'POST #create' do
+  #  it_behaves_like "API Authenticable"
+  #  it_behaves_like "API Creatable" do
+  #    let(:object){ 'answer' }
+  #  end
+
+  #  def do_request(options = {})
+  #    post "/api/v1/questions/#{question.id}/answers", { format: :json, answer: attributes_for(:answer) }.merge(options)
+  #  end
+  #end
 end
