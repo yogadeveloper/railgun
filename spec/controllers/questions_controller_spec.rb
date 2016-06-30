@@ -66,6 +66,12 @@ RSpec.describe QuestionsController, type: :controller do
         post :create, question: attributes_for(:question)
         expect(response).to redirect_to question_path(assigns(:question))
       end
+
+      it 'publish question to /questions' do
+        expect(PrivatePub).to receive(:publish_to).with("/questions", anything)
+        post :create, question: attributes_for(:question)
+      end
+
     end
 
     context 'with invalid attributes(logged in user)' do
@@ -78,6 +84,10 @@ RSpec.describe QuestionsController, type: :controller do
       it 're-renders new view' do
         post :create, question: attributes_for(:invalid_question)
         expect(response).to render_template :new
+      end
+      it 'does not publish question to /questions' do
+        expect(PrivatePub).to_not receive(:publish_to).with("/questions", anything)
+        post :create, question: attributes_for(:invalid_question)
       end
     end
   end
@@ -116,12 +126,7 @@ RSpec.describe QuestionsController, type: :controller do
 
     it 'changes question attr' do
       patch :update, id: question, user_id: user.id, question: { body: 'some...body' }, format: :js
-      question.reload
       expect(question.body).to eq 'some...body'
-    end
-    it 'render update template' do
-      patch :update, id: question, user_id: user, question: attributes_for(:question), format: :js
-      expect(response).to render_template :update
     end
   end
 
