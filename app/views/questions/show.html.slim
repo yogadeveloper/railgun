@@ -17,5 +17,5 @@ hr style="margin-top:10%"
       = render 'attachments/form', f: f, attached:  @answer.attachments.build
       
       p= f.submit 'Reply', class: "btn btn-primary"
-    = subscribe_to "/questions/#{@question.id}/answers/destroy"
-    = subscribe_to "/comments"
+= subscribe_to "/questions/#{@question.id}/answers/destroy"
+= subscribe_to "/comments"

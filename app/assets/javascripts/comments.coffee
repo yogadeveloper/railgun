@@ -5,7 +5,7 @@ ready = ->
     commentable_id = $.parseJSON(data['commentable_id'])
     commentable_type = $.parseJSON(data['commentable_type'])
 
-    $('.' + commentable_type + '-comments#' + commentable_id).append(JST["templates/comment"]({comment_author: comment_author, comment: comment_body}))
+    $('.' + commentable_type + '-comments').append(JST["templates/comment"]({comment_author: comment_author, comment: comment_body}))
     $('textarea#comment_body').val('');
 
 $(document).ready(ready)

@@ -13,9 +13,9 @@ feature 'add some comment to answer' do
         fill_in 'Add comment', with: 'what are you doing, man?'
         click_on 'Comment'
       end
+      expect(page).to have_content 'what are you doing, man?'
+      expect(page).to have_content /#{user[:email]}/i
     end
-    expect(page).to have_content user[:email]
-    expect(page).to have_content 'what are you doing, man?'
   end
 
   scenario 'Non-authenticated user try to comment answer' do

@@ -107,15 +107,15 @@ describe 'Question API' do
     end
   end
 
-  #describe 'POST #create' do
-  #  it_behaves_like "API Authenticable"
+  describe 'POST #create' do
+    it_behaves_like "API Authenticable"
 
-  #  it_behaves_like "API Creatable" do
-  #    let(:object){ 'question' }
-  #  end
+    it_behaves_like "API Creatable" do
+      let(:object){ 'question' }
+    end
 
-  #  def do_request(options = {})
-  #    post '/api/v1/questions', { format: :json, question: attributes_for(:question) }.merge(options)
-  #  end
-  #end
+    def do_request(options = {})
+      post '/api/v1/questions', { format: :json, question: attributes_for(:question) }.merge(options)
+    end
+  end
 end
