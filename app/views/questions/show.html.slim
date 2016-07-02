@@ -1,7 +1,7 @@
 .row
   .col-md-12
     = render @question
-hr style="margin-top:10%"
+hr style="margin-top:5%"
     
 .answers id = "answers-list" data={question_id: "#{@question.id}"}
   = render @question.answers

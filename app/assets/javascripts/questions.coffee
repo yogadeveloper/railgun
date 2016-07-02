@@ -23,7 +23,7 @@ ready = ->
     e.preventDefault();
     $(this).hide();
     question_id = $(this).data('questionId')
-    $('form#new-comment-Question-' + question_id).show()
+    $('form#new-comment-Question-' + question_id).show();
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

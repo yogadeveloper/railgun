@@ -19,9 +19,9 @@ div id="question-#{ @question.id }" class="question" data={question_id: "#{quest
                                                                  data: { question_id: question.id }, id: "inline"
           
         = render 'form'  
-      .question-comments id="#{@question.id}"
+      .Question-comments id="#{@question.id}"
         = render @question.comments.order('created_at')
       - if current_user
-       .question-comment-form
-         = render 'comments/form', commentable: @question
-         = link_to 'Add comment', '', class: 'comment-question-link', data: {question_id: @question.id }    
+        .question-comment-form
+          = render 'comments/form', commentable: @question
+          = link_to 'Add comment', '', class: 'comment-question-link btn btn-warning', data: {question_id: @question.id }    
