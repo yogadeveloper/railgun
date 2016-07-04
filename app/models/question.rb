@@ -10,12 +10,11 @@ class Question < ActiveRecord::Base
   validates :body,  length: { minimum: 5 }, presence: true
   validates :user_id, presence: true
 
-  after_create :calculate_reputation
+  after_create :update_reputation
 
   private
 
-  def calculate_reputation
-    reputation = Reputation.calculate(self)
-    self.user.update(reputation: reputation)
+  def update_reputation
+    CalculateReputationJob.perform_later(self)
   end
 end

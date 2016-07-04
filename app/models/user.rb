@@ -38,6 +38,12 @@ class User < ActiveRecord::Base
     user
   end
 
+  def self.send_daily_digest
+    find_each.each do |user|
+      DailyMailer.digest(user).deliver_later
+    end
+  end
+
   def create_auth(auth, confirmed)
     token = Devise.friendly_token[0, 20]
     authorizations.create(provider: auth.provider, uid: auth.uid, token: token, confirmed: confirmed)

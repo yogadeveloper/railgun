@@ -2,6 +2,7 @@ require 'capybara/email/rspec'
 require 'shoulda-matchers'
 require 'bundler/setup'
 require 'cancan/matchers'
+# require 'delayed_job_active_record'
 
 ::Bundler.require(:default, :test)
 
@@ -28,6 +29,9 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'rspec/rails'
 require 'spec_helper'
 require 'factory_girl'
+require 'sidekiq/testing'
+
+Sidekiq::Testing.fake!
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -52,6 +56,9 @@ ActiveRecord::Migration.maintain_test_schema!
 OmniAuth.config.test_mode = true
 
 RSpec.configure do |config|
+  # config.before do
+  #   Delayed::Worker.delay_jobs = false
+  # end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
