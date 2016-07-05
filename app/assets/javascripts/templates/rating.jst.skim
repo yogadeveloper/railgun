@@ -1,1 +1,3 @@
-p.label.label-info Rating: #{@rating }
+.rating-view
+  i.fa.fa-star-o aria-hidden="true"
+  p #{@rating }

@@ -9,13 +9,14 @@ feature 'add some comment to answer' do
     visit question_path(question)
     within '.answers' do
       click_on 'Add comment'
+      save_and_open_page
       within '.answer-comment-form' do
         fill_in 'Add comment', with: 'what are you doing, man?'
-        click_on 'Comment'
       end
+      click_on 'Comment'
+      expect(page).to have_content 'what are you doing, man?'
+      expect(page).to have_content /#{user[:email]}/i
     end
-    expect(page).to have_content user[:email]
-    expect(page).to have_content 'what are you doing, man?'
   end
 
   scenario 'Non-authenticated user try to comment answer' do

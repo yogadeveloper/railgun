@@ -2,7 +2,7 @@
   = form_for [commentable, Comment.new ], html: { id: "new-comment-#{commentable.class}-#{commentable.id}"}, remote: true do |f|
     p
       = f.label :body, 'Add comment'
+    p
       = f.text_area :body
-    .comment-errors
-    
+
     p= f.submit 'Comment', class: 'btn btn-primary'

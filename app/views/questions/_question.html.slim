@@ -19,10 +19,9 @@ div id="question-#{ @question.id }" class="question" data={question_id: "#{quest
                                                                  data: { question_id: question.id }, id: "inline"
           
         = render 'form'  
-      .question-comments
+      .Question-comments id="#{@question.id}"
         = render @question.comments.order('created_at')
-        = subscribe_to "/question/#{@question.id}/comments"
       - if current_user
-       .question-comment-form
-         = render 'comments/form', commentable: @question
-         = link_to 'Add comment', '', class: 'comment-question-link', data: {question_id: @question.id }    
+        .question-comment-form
+          = render 'comments/form', commentable: @question
+          = link_to 'Add comment', '', class: 'comment-question-link btn btn-warning', data: {question_id: @question.id }    

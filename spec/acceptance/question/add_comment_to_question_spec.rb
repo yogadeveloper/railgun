@@ -12,7 +12,7 @@ feature 'add some comment' do
       fill_in 'Add comment', with: 'what are you doing, man?'
     end
     click_on 'Comment'
-    expect(page).to have_content user[:email]
+    expect(page).to have_content /#{user[:email]}/i
     expect(page).to have_content 'what are you doing, man?'
   end
 

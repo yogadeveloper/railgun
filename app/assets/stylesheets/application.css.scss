@@ -6,6 +6,8 @@
 @import "font-awesome";
 @import "sidebar";
 @import "answers";
+@import "comments";
+
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -22,6 +24,8 @@
 
 // Variables
 
+.new_comment { display: none; }
+
 $accent-color: #286090;
 $danger-color: #d43f3a;
 $info-color: #eea236;
@@ -35,9 +39,6 @@ p { padding-bottom: 18px }
 ul#inline li { display: inline; padding: 0 5px; }
 ul#inline li:not(:last-child) { border-right: 2px solid #CACACA; }
 form#inline { display: inline; }
-.edit_answer { display: none; }
-.edit_question { display: none; }
-.new_comment { display: none; }
 
 // Input type
 input[type=file] { margin: 10px 0; }
@@ -76,3 +77,4 @@ input[type=file] { margin: 10px 0; }
       border-color: desaturate($accent-color, $desaturate);
     }
    }
+.rating-view { padding-top: 40px; text-align: center; }
