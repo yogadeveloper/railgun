@@ -19,6 +19,19 @@ describe Question do
   it { should have_many(:votes).dependent(:destroy) }
   it { should have_many(:comments).dependent(:destroy) }
 
+  it { should have_many(:subscriptions).dependent(:destroy) }
+  it { should have_many(:sub_users) }
+
+  describe 'subscribe_to_question' do
+    let(:user){ create(:user) }
+
+    it 'subscribes user to question' do
+      question = Question.new(title: 'test-title', body: 'test-body', user: user)
+
+      expect{ question.save! }.to change(user.subscriptions, :count).by(1)
+    end
+  end
+
   it {should accept_nested_attributes_for :attachments }
 
   it_behaves_like 'votable'
@@ -28,5 +41,16 @@ describe Question do
     subject { build(:question, user: user) }
 
     it_behaves_like 'calculates reputation'
+  end
+
+
+  describe 'subscribe_to_question' do
+    let(:user){ create(:user) }
+
+    it 'subscribes user to question' do
+      question = Question.new(title: 'test-title', body: 'test-body', user: user)
+
+      expect{ question.save! }.to change(user.subscriptions, :count).by(1)
+    end
   end
 end

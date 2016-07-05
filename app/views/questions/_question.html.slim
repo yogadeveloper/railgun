@@ -1,27 +1,37 @@
-div id="question-#{ @question.id }" class="question" data={question_id: "#{question.id}"}
+.question id="question-#{ @question.id }" data={question_id: "#{question.id}"}
   .row
-    .col-md-8.col-md-offset-1
-      h2= question.title
-      hr
-  .col-md-12
-    .col-md-1
-      = render partial: 'votes/vote', locals: { votable: @question }
-    .col-md-8
-      p= question.body
-      - if question.attachments.exists?
-        p Attachments:
-      ul
-        = render question.attachments
-      - if current_user && current_user.owner_of?(question)
-        = link_to 'Delete question', question, method: 'delete', class: 'btn btn-danger btn-secondary', 
-                                                                 data: { question_id: question.id }, id: "inline"
-        = link_to 'Edit', '', class: 'edit-question-link btn btn-warning', 
-                                                                 data: { question_id: question.id }, id: "inline"
-          
-        = render 'form'  
-      .Question-comments id="#{@question.id}"
-        = render @question.comments.order('created_at')
-      - if current_user
-        .question-comment-form
-          = render 'comments/form', commentable: @question
-          = link_to 'Add comment', '', class: 'comment-question-link btn btn-warning', data: {question_id: @question.id }    
+    .col-md-12
+      .row
+        .col-md-8.col-md-offset-1
+          h2= question.title
+          hr
+      .col-md-12
+        .col-md-1
+          = render partial: 'votes/vote', locals: { votable: @question }
+        .col-md-8
+          p= question.body
+          - if question.attachments.exists?
+            p Attachments:
+          ul
+            = render question.attachments
+          - if current_user && current_user.owner_of?(question)
+            = link_to 'Delete question', question, method: 'delete', class: 'btn btn-danger btn-secondary', 
+                                                                     data: { question_id: question.id }, id: "inline"
+            = link_to 'Edit', '', class: 'edit-question-link btn btn-warning', 
+                                                                     data: { question_id: question.id }, id: "inline"
+              
+            = render 'form'  
+          .Question-comments id="#{@question.id}"
+            = render @question.comments.order('created_at')
+          - if current_user
+            .question-comment-form
+              = render 'comments/form', commentable: @question
+              = link_to 'Add comment', '', class: 'comment-question-link btn btn-warning', data: {question_id: @question.id }
+            .subscription
+              - if current_user.subscribed?(question)
+                = link_to 'Unsubscribe', question_subscriptions_path(question), method: :delete, 
+                                                                  class: "btn btn-warning", remote: true
+              - else
+                = link_to 'Subscribe', question_subscriptions_path(question), method: :post,
+                                                                  class: "btn btn-warning", remote: true
+                                                                                                  

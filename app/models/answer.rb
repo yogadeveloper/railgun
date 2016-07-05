@@ -1,4 +1,6 @@
 class Answer < ActiveRecord::Base
+  after_commit :notify_users
+
   include Attachable
   include Votable
   include Commentable
@@ -24,5 +26,9 @@ class Answer < ActiveRecord::Base
 
   def update_reputation
     CalculateReputationJob.perform_later(self)
+  end
+
+  def notify_users
+    NewAnswerNotificationJob.perform_later(self)
   end
 end

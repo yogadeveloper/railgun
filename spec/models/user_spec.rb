@@ -9,6 +9,9 @@ RSpec.describe User do
   it { should have_many(:comments) }
   it { should have_many(:authorizations).dependent(:destroy) }
 
+  it { should have_many(:subscriptions).dependent(:destroy) }
+  it { should have_many :question_subs }
+
   it { should respond_to(:owner_of?) }
 
   let(:owner) { create :user }
@@ -93,12 +96,43 @@ RSpec.describe User do
     end
   end
 
-  describe '.send_daily_digest' do
-    let(:user) { create_list(:user, 2) }
+  describe 'subscription methods' do
+    let(:user){ create(:user) }
+    let(:user2){ create(:user) }
+    let!(:question){ create(:question, user: user2) }
 
-    it 'should send daily digest to all users' do
-      user.each { |user| expect(DailyMailer).to receive(:digest).with(user).and_call_original }
-      User.send_daily_digest
+    describe 'subscribe!' do
+     it 'creates subscription to question' do
+       expect{ user.subscribe!(question.id) }.to change(user.subscriptions, :count).by(1)
+     end
+
+     it 'does not creates subscription again' do
+       create(:subscription, question_sub_id: question.id, sub_user_id: user.id)
+       expect{ user.subscribe!(question.id) }.to_not change(Subscription, :count)
+     end
+    end
+
+    describe 'unsubscribe!' do
+     it 'deletes subscription to question' do
+       create(:subscription, question_sub_id: question.id, sub_user_id: user.id)
+       expect{ user.unsubscribe!(question.id) }.to change(Subscription, :count).by(-1)
+     end
+
+     it 'do nothing if there is no sub' do
+       question.subscriptions.delete_all
+       expect{ user.unsubscribe!(question.id) }.to_not change(Subscription, :count)
+     end
+    end
+
+    describe 'subscribed?' do
+     it 'returns true if user subscribed to question' do
+       create(:subscription, question_sub_id: question.id, sub_user_id: user.id)
+       expect(user).to be_subscribed(question)
+     end
+
+     it 'returns false if user not subscribed to question' do
+       expect(user).to_not be_subscribed(question)
+     end
     end
   end
 end

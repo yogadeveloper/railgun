@@ -48,7 +48,7 @@ gem 'oj_mimic_json'
 gem 'sidekiq'
 gem 'whenever'
 gem 'sinatra', '>= 1.3.0', require: nil
-gem 'sidetiq'
+#gem 'sidetiq'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

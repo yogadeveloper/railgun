@@ -1,7 +1,13 @@
 class DailyDigestJob < ActiveJob::Base
-  queue_as :default
+  queue_as :mailers
 
   def perform
-    User.send_daily_digest
+    questions = Question.where(created_at: Time.now.yesterday.all_day)
+
+    if questions.present?
+      User.find_each do |user|
+        DailyMailer.delay.digest(user, questions)
+      end
+    end
   end
 end

@@ -27,4 +27,16 @@ describe Answer do
 
     it_behaves_like 'calculates reputation'
   end
+
+  describe 'notify_users method' do
+    let(:user){ create(:user) }
+    let(:question){ create(:question, user: user) }
+
+    it 'calls background job' do
+      answer = Answer.new(body: 'answer body', question: question, user: user)
+      expect(NewAnswerNotificationJob).to receive(:perform_later).with(answer)
+      answer.save
+      answer.committed!
+    end
+  end
 end
