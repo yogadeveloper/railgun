@@ -35,11 +35,12 @@ gem 'skim'
 gem 'private_pub'
 gem 'thin'
 gem 'responders'
-gem 'omniauth'
+gem 'omniauth-oauth2', '~> 1.3.1'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem "font-awesome-rails"
 gem 'cancancan'
+gem 'doorkeeper'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -67,4 +68,5 @@ end
 group :test do
    gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git'
    gem 'capybara-email'
+   gem 'json_spec'
 end

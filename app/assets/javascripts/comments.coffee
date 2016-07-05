@@ -1,6 +1,5 @@
 ready = ->
   PrivatePub.subscribe '/comments', (data, channel) ->
-    console.log(data)
     comment_author = $.parseJSON(data['comment_author'])
     comment_body = $.parseJSON(data['comment_body'])
     commentable_id = $.parseJSON(data['commentable_id'])

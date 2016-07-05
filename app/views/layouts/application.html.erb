@@ -7,39 +7,32 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '151385155278830',
-      xfbml      : true,
-      version    : 'v2.6'
-    });
-  };
+  <div id="wrapper">
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
-  <div class="container">
-    <nav class="navbar navbar-light bg-faded">
-      <ul class="nav navbar-nav">
+    <!-- SIDEBAR -->
+    <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand highlight">
+          <a href="/">RailGun Community</a>
+        </li>
         <li class="nav-item active">
           <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
+          <a class="nav-link" href="#">TDD / BDD</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
+          <a class="nav-link" href="#">GitFlow</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
+          <a class="nav-link" href="#">Deploy</a>
         </li>
-
+        <li class="nav-item">
+          <a class="nav-link" href="#">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">CoffeeScript</a>
+        </li>
         <% unless devise_controller? %>
         <% if user_signed_in? %>
         <li><%= link_to 'Log out',
@@ -49,18 +42,27 @@
         <li><%= link_to 'Log in', new_user_session_path %></li>
         <% end %>
         <% end %>
-        <button class="btn btn-success-outline pull-xs-right">
-          <a class="nav-link" href="/questions/new">Ask Question</a>
-
+        <li class="highlight">
+          <a class="nav-linkpull-xs-right" href="/questions/new">Ask Question</a>
+        </li>
       </ul>
-
-    </nav>
+    </div>
+    <div id="page-content-wrapper"
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <% if notice.present? %>
+              <p class="notice bg-info"><%= notice %></p>
+            <% end %>
+            <% if alert.present? %>
+              <p class="alert bg-info"><%= alert %></p>
+            <% end %>
+            <%= yield %>
+            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-<div class="container">
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-  
-<%= yield %>
-</div>
 </body>
 </html>

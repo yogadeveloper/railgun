@@ -1,27 +1,28 @@
 div id="question-#{ @question.id }" class="question" data={question_id: "#{question.id}"}
   .row
-    .col-md-6.col-md-offset-1
+    .col-md-8.col-md-offset-1
       h2= question.title
       hr
   .col-md-12
-    .col-md-4
+    .col-md-1
       = render partial: 'votes/vote', locals: { votable: @question }
     .col-md-8
       p= question.body
-      -  if question.attachments.exists?
+      - if question.attachments.exists?
         p Attachments:
       ul
         = render question.attachments
       - if current_user && current_user.owner_of?(question)
-         =link_to 'Delete question', question, method: 'delete', class: 'btn btn-danger btn-secondary', data: { question_id: question.id }, id: "inline"
-         =link_to 'Edit', '', class: 'edit-question-link btn btn-warning', data: { question_id: question.id }, id: "inline"
+        = link_to 'Delete question', question, method: 'delete', class: 'btn btn-danger btn-secondary', 
+                                                                 data: { question_id: question.id }, id: "inline"
+        = link_to 'Edit', '', class: 'edit-question-link btn btn-warning', 
+                                                                 data: { question_id: question.id }, id: "inline"
           
-         =render 'form'  
+        = render 'form'  
       .question-comments
-       h3 Comments
-       = render @question.comments.order('created_at')
-       = subscribe_to "/question/#{@question.id}/comments"
+        = render @question.comments.order('created_at')
+        = subscribe_to "/question/#{@question.id}/comments"
       - if current_user
        .question-comment-form
          = render 'comments/form', commentable: @question
-         = link_to 'Add comment', '', class: 'comment-question-link btn btn-warning', data: {question_id: @question.id }    
+         = link_to 'Add comment', '', class: 'comment-question-link', data: {question_id: @question.id }    

@@ -1,7 +1,8 @@
 ready = ->
   $('.buttons').bind 'ajax:success', (e, data, status, xhr) ->
     response = xhr.responseJSON
-    $('div#' + response.model + '-' + response.id + ' .rating').html('Rating: ' + response.rating);
+    $('div#' + response.model + '-' + response.id + ' .rating').html(JST["templates/rating"]({rating: response.rating}))
+
     if response.voted
       $('#vote_up-' + response.model + response.id).attr('disabled', true);
       $('#vote_down-' + response.model + response.id).attr('disabled', true);

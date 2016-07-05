@@ -1,7 +1,7 @@
 .row
   .col-md-12
     = render @question
-
+hr style="margin-top:10%"
     
 .answers id = "answers-list" data={question_id: "#{@question.id}"}
   = render @question.answers
@@ -16,6 +16,6 @@
       
       = render 'attachments/form', f: f, attached:  @answer.attachments.build
       
-      p= f.submit 'Reply'
+      p= f.submit 'Reply', class: "btn btn-primary"
     = subscribe_to "/questions/#{@question.id}/answers/destroy"
-= subscribe_to "/comments"
+    = subscribe_to "/comments"

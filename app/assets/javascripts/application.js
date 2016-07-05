@@ -22,3 +22,4 @@
 //= require_answers
 //= require_questions
 //= require_votables
+//= require_toggle

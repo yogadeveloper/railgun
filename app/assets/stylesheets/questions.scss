@@ -5,5 +5,13 @@
 .edit_question { display: none; }
 .stats span { font-size: 12px; }
 .rating { margin-right: 15px; }
-.mini-counts { margin-left: 5px; } 
+.mini-counts { margin-left: 5px; }
 .answers-count { margin-left: 5px; }
+.page-header { margin-top: 0px; }
+
+// VOTES AND RATING
+
+.votes .fa { font-size: 20px; }
+.remove-vote button { padding: 4px 9px; font-size: 19px; }
+.remove-vote i { font-size: 20px; color: #7b7b7b; }
+.votes .btn-default { margin-top: 14px; }
