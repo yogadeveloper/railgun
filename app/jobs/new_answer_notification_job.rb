@@ -4,7 +4,7 @@ class NewAnswerNotificationJob < ActiveJob::Base
   def perform(answer)
     users = Answer.find(answer.id).question.sub_users
 
-    users.each do |user|
+    users.find_each do |user|
       NotificationMailer.new_answer(answer.id, user.id).deliver_later
     end
   end

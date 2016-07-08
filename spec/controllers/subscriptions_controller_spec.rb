@@ -7,8 +7,8 @@ RSpec.describe SubscriptionsController, type: :controller do
 
   describe 'POST #create' do
     it 'creates new subscription' do
-      expect{ post :create, question_id: question.id, format: :json }.to change(@user.subscriptions, :count).by(1)
-      expect{ post :create, question_id: question.id, format: :json }.to change(question.subscriptions, :count).by(1)
+      expect{ post :create, question_id: question.id, format: :json }.to change(@user.subscriptions, :count).by(1) &&
+                                                                         change(question.subscriptions, :count).by(1)
     end
 
     it 'does not creates subscription twice' do
@@ -25,8 +25,8 @@ RSpec.describe SubscriptionsController, type: :controller do
   describe 'DELETE #destroy' do
     it 'deletes existing subscription' do
       create(:subscription, question_sub_id: question.id, sub_user_id: @user.id)
-      expect{ delete :destroy, question_id: question.id, format: :json }.to change(@user.subscriptions, :count).by(-1)
-      expect{ delete :destroy, question_id: question.id, format: :json }.to change(question.subscriptions, :count).by(-1)
+      expect{ delete :destroy, question_id: question.id, format: :json }.to change(@user.subscriptions, :count).by(-1) &&
+                                                                            change(question.subscriptions, :count).by(-1)
     end
 
     it 'assigns question to @question' do

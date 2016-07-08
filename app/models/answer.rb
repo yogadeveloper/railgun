@@ -1,5 +1,5 @@
 class Answer < ActiveRecord::Base
-  after_commit :notify_users
+  after_create :notify_users
 
   include Attachable
   include Votable
