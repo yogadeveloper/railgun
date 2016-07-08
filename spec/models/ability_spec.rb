@@ -59,5 +59,8 @@ describe Ability do
     it { should_not be_able_to :vote_up, answer }
     it { should_not be_able_to :vote_down, answer }
     it { should_not be_able_to :remove_vote, answer }
+
+    it { should be_able_to :create, Subscription }
+    it { should be_able_to :destroy, Subscription }
   end
 end

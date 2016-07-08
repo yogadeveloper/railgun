@@ -1,0 +1,5 @@
+h3 = 'Hi, dear ' + @user.email  
+
+p Please, check our our daily digest
+- @questions.each do |question|
+  = link_to question.title, url_for(question)

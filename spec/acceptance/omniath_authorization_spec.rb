@@ -1,13 +1,17 @@
 require_relative 'acceptance_helper'
+include ActiveJob::TestHelper
+
+include ActiveJob::TestHelper
 
 feature 'Omniauth' do
   given(:user) { create(:user) }
 
-  describe 'facebook', js: true do
+  describe 'facebook' do
     it 'sign up new user' do
       visit new_user_registration_path
       mock_auth_hash
       click_on 'Sign in with Facebook'
+
       expect(page).to have_content 'Successfully authenticated from facebook account.'
     end
 
@@ -15,12 +19,14 @@ feature 'Omniauth' do
       user
       visit new_user_registration_path
       mock_auth_hash(info: {email: user.email})
-      click_on 'Sign in with Facebook'
+      perform_enqueued_jobs do
+        click_on 'Sign in with Facebook'
+      end
 
-      expect(page).to have_content 'Please confirm authorization by email'
+      expect(page).to have_content 'Please confirm your authorization by email.'
 
       open_email(user.email)
-      current_email.click_link 'confirm'
+      current_email.click_on 'confirm'
 
       expect(page).to have_content 'Successfully authenticated from facebook account.'
     end
@@ -40,7 +46,7 @@ feature 'Omniauth' do
       mock_auth_hash(info: {email: user.email})
       click_on 'Sign in with Facebook'
 
-      expect(page).to have_content 'Please confirm authorization by email'
+      expect(page).to have_content 'Please confirm your authorization by email.'
     end
 
     it 'handle authentication error' do
@@ -52,7 +58,7 @@ feature 'Omniauth' do
     end
   end
 
-  describe 'twitter', js: true do
+  describe 'twitter' do
     it 'sign up new user' do
       visit new_user_registration_path
       mock_auth_hash(provider: 'twitter', info: nil)
@@ -71,12 +77,14 @@ feature 'Omniauth' do
       click_on 'Sign in with Twitter'
 
       fill_in 'Email:', with: user.email
-      click_on 'Submit'
+      perform_enqueued_jobs do
+        click_on 'Submit'
+      end
 
-      expect(page).to have_content 'Email has been sent. Please confirm your authorization.'
+      expect(page).to have_content 'Email sent. Please confirm your authorization.'
 
       open_email(user.email)
-      current_email.click_link 'confirm'
+      current_email.click_on 'confirm'
 
       expect(page).to have_content 'Successfully authenticated from twitter account.'
     end
@@ -96,7 +104,7 @@ feature 'Omniauth' do
       mock_auth_hash(provider: 'twitter', info: nil)
       click_on 'Sign in with Twitter'
 
-      expect(page).to have_content 'Please confirm authorization by email'
+      expect(page).to have_content 'Please confirm your authorization by email.'
     end
 
     it 'handle authentication error' do
@@ -108,17 +116,19 @@ feature 'Omniauth' do
     end
   end
 
-  describe 'resend confirmation email', js: true do
+  describe 'resend confirmation email' do
     it 'sends again email' do
       user.authorizations.create(provider: 'twitter', uid: '123456', token: 'newtoken', confirmed: false)
       visit new_user_registration_path
       mock_auth_hash(provider: 'twitter', info: nil)
       click_on 'Sign in with Twitter'
-      click_on 'Resend confirmation?'
+      perform_enqueued_jobs do
+        click_on 'Resend confirmation?'
+      end
 
-      expect(page).to have_content 'Email has been sent. Please confirm your authorization.'
+      expect(page).to have_content 'Email sent. Please confirm your authorization.'
       open_email(user.email)
-      current_email.click_link 'confirm'
+      current_email.click_on 'confirm'
       expect(page).to have_content 'Successfully authenticated from twitter account.'
     end
   end

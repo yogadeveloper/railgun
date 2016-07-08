@@ -16,8 +16,27 @@ describe Answer do
   it { should validate_presence_of(:user_id) }
   it { should have_db_column(:best).of_type(:boolean).with_options(default: false) }
 
-
   it_behaves_like 'votable' do
     let(:votable) { create(:answer, user: user, question:question) }
+  end
+
+  describe 'reputation' do
+    let(:user) { create(:user) }
+    let(:question) { create(:question, user: user)}
+    subject { build(:answer, user: user, question: question) }
+
+    it_behaves_like 'calculates reputation'
+  end
+
+  describe 'notify_users method' do
+    let(:user){ create(:user) }
+    let(:question){ create(:question, user: user) }
+
+    it 'calls background job' do
+      answer = Answer.new(body: 'answer body', question: question, user: user)
+      expect(NewAnswerNotificationJob).to receive(:perform_later).with(answer)
+      answer.save
+      answer.committed!
+    end
   end
 end
