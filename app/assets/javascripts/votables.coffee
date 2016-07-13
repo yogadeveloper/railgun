@@ -1,5 +1,5 @@
 ready = ->
-  $('.buttons').bind 'ajax:success', (e, data, status, xhr) ->
+  $('.vote-buttons').bind 'ajax:success', (e, data, status, xhr) ->
     response = xhr.responseJSON
     $('div#' + response.model + '-' + response.id + ' .rating').html(JST["templates/rating"]({rating: response.rating}))
 

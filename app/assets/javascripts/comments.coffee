@@ -9,6 +9,10 @@ ready = ->
     $('.' + commentable_type + '-comments#' + commentable_id).append(JST["templates/comment"]({comment_author: comment_author, comment: comment_body}))
     $('textarea#comment_body').val('')
 
+  $('input[value="Comment"]').click (e) ->
+    $('.new_comment').hide();
+    $('.comment-answer-link').show();
+
 $(document).ready(ready)
 $(document).on('page:load', ready)
 $(document).on('page:update', ready)

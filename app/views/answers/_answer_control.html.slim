@@ -1,16 +1,21 @@
 - if current_user && current_user.owner_of?(answer)
-  ul#inline class="ul-border"  
+  ul.inline style="padding: 20px 0;"  
     li
-      = link_to 'Edit', '',  class: 'edit-answer-link', data: { answer_id: answer.id }    
-      = form_for answer, remote: true, html: { id: "edit-answer-#{answer.id}"} do |f|
-        p
-          = f.label :body, "Answer"
-          = f.text_area :body
-        p
-          = f.submit 'Save'
-        
-        = render 'attachments/form', f: f 
       - if current_user && current_user.owner_of?(answer)
-        li= link_to 'Mark as Best', mark_as_best_answer_path(answer), remote: true, method: :patch
-        li= link_to 'Delete answer', answer, remote: true, method: 'delete',  data: {confirm: 'Are you sure?'}
+        li = link_to 'Edit', '',  class: 'edit-answer-link btn btn-primary', data: { answer_id: answer.id }    
+        - if current_user && current_user.owner_of?(answer.question)  
+          li= link_to 'Mark as Best', mark_as_best_answer_path(answer), remote: true, method: :patch, class: "btn btn-warning btn-best-answer"
+        li= link_to 'Delete answer', answer, remote: true, method: 'delete',  data: {confirm: 'Are you sure?'},
+                                                                class: "btn btn-danger"
+  = form_for answer, remote: true, html: { id: "edit-answer-#{answer.id}"} do |f|
+    = f.label :body, "Answer"
+    p
+      = f.text_area :body, class: "textarea-answer"
+      ul.inline
+        li= f.submit 'Save', class: "btn btn-primary"
+        li= link_to "Add Attachment", '', class: "btn btn-warning add-attachment-link" 
+    = render 'attachments/form', f: f 
+        
+        
+        
          

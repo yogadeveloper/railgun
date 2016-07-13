@@ -1,6 +1,6 @@
 .row
   .confainer-fluid
-    .div class="col-md-6 col-md-offset-3"
+    .div class="col-md-9 col-md-offset-1"
       h2.text-center Ask Your Question
       = form_for @question do |f|
         fieldset.form-group 
@@ -10,12 +10,7 @@
           = f.label :body
           = f.text_area :body, class: "form-control" 
         
-        .col-md-12
-          .col-md-2
-            = f.submit 'Create'
-          .col-md-10
-           .col-md-5 
-             h4 Attachments: 
-           .col-md-5
-             = render 'attachments/form', f: f,  attached: @question.attachments.new
+        = f.submit 'Create', class: "btn btn-primary", style: "margin-right: 5px;"
+        =link_to "Add Attachment", '', class: "btn btn-warning add-attachment-link" 
+        = render 'attachments/form', f: f,  attached: @question.attachments.new
   

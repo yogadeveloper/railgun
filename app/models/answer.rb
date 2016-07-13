@@ -8,14 +8,14 @@ class Answer < ActiveRecord::Base
   belongs_to :question
   belongs_to :user
 
-  default_scope { order(best: :desc) }
+  scope :best_first, -> { order('best DESC', 'created_at') }
 
   validates :body, presence: true, length: { minimum: 5 }
   validates :question_id, :user_id, presence: true
 
   def make_best!
     transaction do
-      question.answers.where(best: true).update_all(best: false)
+      question.answers.where(best: true).update_all(best: false, updated_at: Time.now)
       update!(best: true)
     end
   end

@@ -3,5 +3,12 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .edit_answer { display: none; }
-.answers { padding-top: 5%; }
 .answer { padding-bottom: 5%; }
+.textarea-answer { width: 500px; height: 150px;}
+
+// votes interface
+.buttons { text-align: center; }
+.answer-header { margin-top: 50px; }
+.answer-comment-form { padding-top: 30px; }
+
+.vote-buttons button { border-style: none; }

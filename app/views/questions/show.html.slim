@@ -1,19 +1,30 @@
 = render @question
-hr style="margin-top:5%"
+= render 'questions/comments'
+
+.col-md-12
+  col-md-8.col-md-offset-1.answers-header
+    h4 style="padding-top:5%" Answers
+    hr style="width: 100%;"
     
-.answers id = "answers-list" data={question_id: "#{@question.id}"}
-  = render @question.answers
-= subscribe_to "/questions/#{@question.id}/answers"
-.row
-  .col-md-6
-    = form_for [@question, @answer], remote: true do |f|
-      fielset.form-group
-        = f.label :body
-        .answer-errors
-        = f.text_area :body, class: "form-control"
+  .answers id = "answers-list" data={question_id: "#{@question.id}"}
+    - @question.answers.best_first.each do |answer|
+      = render answer
       
-      = render 'attachments/form', f: f, attached:  @answer.attachments.build
-      
-      p= f.submit 'Reply', class: "btn btn-primary"
-= subscribe_to "/questions/#{@question.id}/answers/destroy"
-= subscribe_to "/comments"
+    = subscribe_to "/questions/#{@question.id}/answers"
+    
+  .answer  
+    .row
+      .col-md-9
+        = form_for [@question, @answer], remote: true do |f|
+          fielset.form-group
+            = f.label :body
+            .answer-errors
+            = f.text_area :body, class: "form-control"
+          
+          ul.inline style="padding-top: 20px; -webkit-padding-start: 0px;"
+            li= f.submit 'Reply', class: "btn btn-primary"
+            li=link_to "Add Attachment", '', class: "btn btn-warning add-attachment-link" 
+            li= render 'attachments/form', f: f, attached:  @answer.attachments.build
+          
+    = subscribe_to "/questions/#{@question.id}/answers/destroy"
+    = subscribe_to "/comments"
