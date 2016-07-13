@@ -3,6 +3,6 @@
     p
       = f.label :body, 'Add comment'
     p
-      = f.text_area :body
+      = f.text_area :body, class: "comment-textarea"
 
     p= f.submit 'Comment', class: 'btn btn-primary'

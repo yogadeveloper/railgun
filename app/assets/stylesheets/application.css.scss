@@ -1,13 +1,12 @@
 @import "bootstrap";
 @import "bootstrap-sprockets";
-@import url(https://fonts.googleapis.com/css?family=Ubuntu);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 @import "questions";
 @import "font-awesome";
 @import "sidebar";
 @import "answers";
 @import "comments";
-
+@import "search";
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -26,27 +25,36 @@
 
 .new_comment { display: none; }
 
-$accent-color: #286090;
+$accent-color: #ea5033;
 $danger-color: #d43f3a;
 $info-color: #eea236;
 $desaturate: 20%;
+$new-color: #ea5033;
+$light-grey: #eeeeee;
+$body-color: #3C3C3C;
 
 h1, h2, h3, h4 { font-family: inherit; font-weight: 100; }
-h2 { color: #24678d }
-body { font-family: 'Open sans', sans-serif; color: #3e3e3e; font-size: 15px; line-height: 24px }
+h2 { color: $body-color }
+body { font-family: 'Open sans', sans-serif; color: $body-color; font-size: 15px; line-height: 24px }
 p { padding-bottom: 18px }
 
+.inline li { display: inline; padding: 0 2px;}
+ul.inline { -webkit-padding-start: 0px; }
 ul#inline li { display: inline; padding: 0 5px; }
 ul#inline li:not(:last-child) { border-right: 2px solid #CACACA; }
 form#inline { display: inline; }
 
 // Input type
 input[type=file] { margin: 10px 0; }
-
+input[type=submit] { outline-style: none !important; }
 // Alert and Notice
+.btn { outline-style: none; }
 
 .notice { padding-top: 15px; padding-left: 25px; }
 .alert { padding-top: 15px; padding-left: 25px; }
+
+ textarea.form-control { height: 150px; }
+
 
 .bg-info { color: #f9f9f9; background-color: #615e5e; }
 
@@ -62,19 +70,30 @@ input[type=file] { margin: 10px 0; }
 }
 
 .btn-warning {
-  color: $info-color;
-  border-color: $info-color;
+  color: $info-color !important;
+  border-color: $info-color !important;
   &:hover {
     color: desaturate( $info-color, $desaturate );
     border-color: desaturate($info-color, $desaturate);
-  }}
+  }
+}
 
-  .btn-primary {
-    color: $accent-color;
-    border-color: $accent-color;
-    &:hover {
-      color: desaturate( $accent-color, $desaturate );
-      border-color: desaturate($accent-color, $desaturate);
-    }
-   }
-.rating-view { padding-top: 40px; text-align: center; }
+.btn-primary {
+  color: $accent-color !important;
+  border-color: $accent-color !important;
+  &:hover {
+    color: desaturate( $accent-color, $desaturate );
+    border-color: desaturate($accent-color, $desaturate);
+  }
+}
+
+
+.rating-view { text-align: center; }
+
+.topcorner {
+    position: absolute;
+    top:10px;
+    right: 35px;
+ }
+
+.bg-info { color: #3C3C3C; background-color: #EEEEEE; }

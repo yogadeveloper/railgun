@@ -2,15 +2,36 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.edit_question { display: none; }
+.edit_question { display: none; padding-top: 20px;}
+.question-comment-form { padding-top: 40px; }
+#attachments { display: none; }
+
+.box { border: 3px solid #eee;
+    box-sizing: border-box;
+    padding: 20px 40px;
+    position: absolute;
+    width: initial;
+    ul { list-style-type: none; -webkit-padding-start: 0px; font-size: 12px; text-align: center;}
+    span { color: #bbb4b4; }
+
+}
+
 .stats span { font-size: 12px; }
 .page-header { margin-top: 0px; }
 .Question-comments { padding-top: 5%; }
 // VOTES AND RATING
 
-.votes .fa { font-size: 20px; }
+.votes .fa { font-size: 20px; color: #337ab7; }
+.vote-buttons .fa { font-size: 18px; color: #337ab7; }
+.rating-view p { color: #337ab7; }
+
 .remove-vote button { padding: 4px 9px; font-size: 19px; }
+.vote-buttons form { display: inline; }
 .remove-vote i { font-size: 20px; color: #7b7b7b; }
 .votes .btn-default { margin-top: 14px; }
-
 .question-title { padding-bottom: 5px; margin-top: -10px; &h3 { padding-top: 0px;}  }
+
+// INDEXX PAGE
+.justifycenter { display: flex; justify-content: center; }
+.stats { align-self: center; }
+h3.index { font-size: 18px; }

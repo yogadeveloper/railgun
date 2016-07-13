@@ -1,35 +1,25 @@
 -if answer.persisted?
   div id="answer-#{ answer.id }" class="answer"
-    .row
-      .col-md-12
-        - if answer.best
-          .best
-            .col-md-2
-              p class="label label-primary" nice! 
-              = render partial: 'votes/vote', locals: { votable: answer }
-            .col-md-8
-              .page-header
-                p= answer.body 
-                ul
-                  = render answer.attachments
-                = render partial: 'answers/answer_control', locals: { answer: answer }
-                = render partial: 'answers/comments', locals: { answer: answer}
-        - else
-          .col-md-2
+    .col-md-12
+      .page-header.answer-header
+        .row
+          .col-md-1
             = render partial: 'votes/vote', locals: { votable: answer }
-          .col-md-8
-            .page-header
-              p = answer.body
-              - if answer.attachments.exists?
-                ul#inline class="ul-border"
-                  li 
-                    span Attached files
-                  - answer.attachments.each do |a|
-                    li= link_to a.file.identifier, a.file.url
+          .col-md-9
+            .row 
+              .col-md-9
+                p = answer.body
+                = render partial: 'votes/votes_control', locals: { votable: answer }
+                - if answer.best? 
+                  p class="label label-primary" nice! 
+              .col-md-3
+                - if answer.attachments.exists?
+                  .box
+                    span Attachments:
+                    ul
+                      = render answer.attachments
+            .row  
               = render partial: 'answers/answer_control', locals: { answer: answer }
-            .Answer-comments id="#{answer.id}"
-              = render answer.comments.order('created_at')
-            - if current_user
-              .answer-comment-form
-                = render 'comments/form', commentable: answer
-                = link_to 'Add comment', '', class: 'comment-answer-link btn btn-warning', data: {answer_id: answer.id }    
+        .row
+          .col-md-8.col-md-offset-1
+            = render partial: 'answers/comments', locals: { answer: answer}

@@ -6,11 +6,7 @@
   fieldset.form-group
     = f.label :body, "Body"
     = f.text_area :body, class: "form-control"
-  
-  #attachments
-    = f.fields_for :attachments do |a|
-      = render 'attachments/attachment_fields', f: a  
-    .links
-      = link_to_add_association 'add file', f, :attachments, partial: 'attachments/attachment_fields'  
-
-  = f.submit 'Save'
+  ul.inline
+    li= f.submit 'Save', class: "btn btn-primary"
+    li= link_to "Add Attachment", '', class: "btn btn-warning add-attachment-link" 
+  = render 'attachments/form', f: f   

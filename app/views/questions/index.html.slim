@@ -1,28 +1,28 @@
 .container
   .row
-    .col-md-6.col-md
+    .col-md-9.col-md
       .page-header.col-md-12
         h2 Top Questions
       .questions-list
         - @questions.each do |q|
           div id="question-#{ q.id }" class="question"
             .row
-              .page-header.col-sm-9.col-md-12 style="padding-bottom: 15px"
-                .row
-                  .stats.col-xs-8.col-sm-3.col-md-4
+              .page-header.col-sm-9.col-md-12 style="padding-bottom: 20px"
+                .row.justifycenter
+                  .stats.col-xs-8.col-sm-3.col-md-3.
                     .row
-                      .rating.col-md-6
+                      .rating.col-md-5
                         .mini-counts.text-center 
                           = q.rating 
                         .text-center  
                           span votes
-                      .answers-count.col-md-6
+                      .answers-count.col-md-5
                         .mini-counts.text-center
                           = q.answers.count
                         .text-center
                           span answers
-                  .question-title.col-xs-4.col-sm-6.col-md-8
-                    h3= link_to q.title, q
+                  .question-title.col-xs-4.col-sm-6.col-md-9
+                    h3.index = link_to q.title, q
 
 = subscribe_to "/questions"
 = subscribe_to "/questions/destroy"

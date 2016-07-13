@@ -25,6 +25,19 @@ ready = ->
     question_id = $(this).data('questionId')
     $('form#new-comment-Question-' + question_id).show();
 
+  $('.add-attachment-link').click (e) ->
+    e.preventDefault();
+    $(this).hide();
+    $('div#attachments').show();
+
+  $('input[value="Reply"]').click (e) ->
+    $('div#attachments').hide();
+    $('.add-attachment-link').show();
+
+  $('input[value="Save"]').click (e) ->
+    $('div#attachments').hide();
+    $('.add-attachment-link').show();
+
 $(document).ready(ready)
 $(document).on('page:load', ready)
 $(document).on('page:update', ready)

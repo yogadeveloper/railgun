@@ -2,11 +2,18 @@
 
 
 .question-comments { padding-top: 20px; }
+.Answer-comments { margin-top: 20px; }
+.comment-textarea { width: 575px; height: 100px;}
+.panel-title {
+  color: #7A8085;
+  font-size: 9px;
+  font-weight: bolder;
+  text-align: right;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.panel-heading { padding: 0px 15px; }
 
-.panel-title { font-size: 11px;
-font-weight: bolder;
-letter-spacing: 1px;
-text-transform: uppercase; }
-
+.panel-body { font-size: 12px; line-height: 18px; }
 .panel-info { border-color: #e3e4e4; }
 .panel-info > .panel-heading { color: #777; background-color: #f5f5f5; border-color: #e3e4e4; }

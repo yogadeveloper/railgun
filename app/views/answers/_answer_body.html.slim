@@ -1,0 +1,16 @@
+.col-md-2
+  = render partial: 'votes/vote', locals: { votable: answer }
+.col-md-8
+  .page-header
+    .row 
+      .col-md-10
+        p = answer.body
+      - if answer.attachments.exists?
+        .col-md-2
+          .box
+            span Attachments:
+            ul
+              = render answer.attachments
+    .row    
+      = render partial: 'answers/answer_control', locals: { answer: answer }
+      = render partial: 'answers/comments', locals: { answer: answer}

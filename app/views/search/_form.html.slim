@@ -1,0 +1,5 @@
+= form_tag search_path, method: :get, class: 'navbar-form navbar-center search-field', role: 'search' do
+  div
+    = text_field_tag 'search_content', params[:search_content], type: 'text', placeholder: 'Search', class: 'form-control'
+    = select_tag 'search_context', options_for_select(Search::TYPES, params[:search_context]), class: 'form-control'
+    span class="search-button" = submit_tag 'Search', class: 'form-control search-button-inner'

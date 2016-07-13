@@ -1,0 +1,7 @@
+.col-md-8.col-md-offset-1
+  .Question-comments id="#{@question.id}"
+    = render @question.comments.order('created_at')
+  - if current_user
+    .question-comment-form
+      = render 'comments/form', commentable: @question
+      = link_to 'Add comment', '', class: 'comment-question-link', data: {question_id: @question.id }
