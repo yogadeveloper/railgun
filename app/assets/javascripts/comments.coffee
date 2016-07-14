@@ -12,7 +12,8 @@ ready = ->
   $('input[value="Comment"]').click (e) ->
     $('.new_comment').hide();
     $('.comment-answer-link').show();
-
+    $('.comment-question-link').show();
+    
 $(document).ready(ready)
 $(document).on('page:load', ready)
 $(document).on('page:update', ready)

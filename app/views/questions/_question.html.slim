@@ -11,6 +11,7 @@
           .row
             .col-md-10
               p= question.body
+              = render partial: 'votes/votes_control', locals: { votable: question }
             - if question.attachments.count > 0
               .col-md-2
                 .box
