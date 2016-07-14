@@ -1,25 +1,26 @@
 -if answer.persisted?
   div id="answer-#{ answer.id }" class="answer"
-    .col-md-12
-      .page-header.answer-header
-        .row
-          .col-md-1
-            = render partial: 'votes/vote', locals: { votable: answer }
-          .col-md-9
-            .row 
-              .col-md-9
-                p = answer.body
-                = render partial: 'votes/votes_control', locals: { votable: answer }
-                - if answer.best? 
-                  p class="label label-primary" nice! 
-              .col-md-3
-                - if answer.attachments.exists?
-                  .box
-                    span Attachments:
-                    ul
-                      = render answer.attachments
-            .row  
-              = render partial: 'answers/answer_control', locals: { answer: answer }
-        .row
-          .col-md-8.col-md-offset-1
-            = render partial: 'answers/comments', locals: { answer: answer}
+    .container
+      .col-md-12
+        .page-header.answer-header
+          .row
+            .col-md-1
+              = render partial: 'votes/vote', locals: { votable: answer }
+            .col-md-9
+              .row 
+                .col-md-9
+                  p = answer.body
+                  = render partial: 'votes/votes_control', locals: { votable: answer }
+                  - if answer.best? 
+                    p class="label label-primary" nice! 
+                .col-md-3
+                  - if answer.attachments.exists?
+                    .box
+                      span Attachments:
+                      ul
+                        = render answer.attachments
+              .row  
+                = render partial: 'answers/answer_control', locals: { answer: answer }
+          .row
+            .col-md-8.col-md-offset-1
+              = render partial: 'answers/comments', locals: { answer: answer}

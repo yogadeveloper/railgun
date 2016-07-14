@@ -4,7 +4,7 @@
 
 .edit_answer { display: none; }
 .answer { padding-bottom: 5%; }
-.textarea-answer { width: 500px; height: 150px;}
+.textarea-answer { width: 70%; height: 150px;}
 
 // votes interface
 .buttons { text-align: center; }
@@ -12,3 +12,7 @@
 .answer-comment-form { padding-top: 30px; }
 
 .vote-buttons button { border-style: none; }
+
+form.edit_answer { width: 100%; }
+// comments width
+.Answer-comments { width: 85% }
