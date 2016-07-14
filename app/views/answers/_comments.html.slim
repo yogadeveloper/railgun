@@ -2,5 +2,5 @@
   = render answer.comments.order('created_at')
 - if current_user
   .answer-comment-form
-    = render 'comments/form', commentable: answer
     = link_to 'Add comment', '', class: 'comment-answer-link', data: {answer_id: answer.id }    
+    = render 'comments/form', commentable: answer
