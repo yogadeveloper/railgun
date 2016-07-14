@@ -54,6 +54,7 @@ gem 'thinking-sphinx'
 gem 'dotenv'
 gem 'dotenv-rails', require: 'dotenv/rails'
 gem 'therubyracer'
+gem 'unicorn'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -70,6 +71,7 @@ group :development do
   gem 'capistrano-rails', require: false
   gem 'capistrano-rvm', require: false
   gem 'capistrano-sidekiq', require: false
+  gem 'capistrano3-unicorn', require: false
 end
 
 group :test, :development do
